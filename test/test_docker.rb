@@ -3,6 +3,7 @@ require 'test/unit'
 class TestDocker < Test::Unit::TestCase
   CONTAINER_NAME = 'test-container'.freeze
   DUMMY_OUTPUT = 'dummy: {"hello":"world"}'.freeze
+  MOUNT_FLAGS = '-v $(pwd)/test/:/fluentd/etc'.freeze
 
   def setup
     system("docker rm -f #{CONTAINER_NAME}", out: File::NULL, err: File::NULL)
@@ -22,7 +23,7 @@ class TestDocker < Test::Unit::TestCase
   end
 
   def test_docker_image_runnable
-    id = `docker run -d --rm --name #{CONTAINER_NAME} #{docker_tag}:latest`
+    id = `docker run -d --rm #{MOUNT_FLAGS} --name #{CONTAINER_NAME} #{docker_tag}:latest`
     assert !id.nil? && !id.empty?
 
     for _ in 1..15 do
