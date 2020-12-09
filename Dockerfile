@@ -1,3 +1,5 @@
+# TODO: Use BuildKit cache from previously pushed image
+# TODO: Check if it's possible to use ruby:2.6 Docker image here
 FROM fluent/fluentd:v1.11.5-debian-1.0 AS builder
 
 # Use root account to use apt
@@ -40,8 +42,38 @@ RUN gem install \
         fluent-plugin-rewrite-tag-filter:2.2.0 \
         fluent-plugin-prometheus:1.6.1
 
-# FluentD plugins from this repository
-COPY gems/fluent-plugin*.gem ./
+WORKDIR /sumologic-kubernetes-fluentd
+
+COPY fluent-plugin-prometheus-format ./fluent-plugin-prometheus-format
+COPY fluent-plugin-kubernetes-metadata-filter ./fluent-plugin-kubernetes-metadata-filter
+COPY fluent-plugin-kubernetes-sumologic/ ./fluent-plugin-kubernetes-sumologic
+COPY fluent-plugin-enhance-k8s-metadata/ ./fluent-plugin-enhance-k8s-metadata
+COPY fluent-plugin-datapoint/ ./fluent-plugin-datapoint
+COPY fluent-plugin-protobuf/ ./fluent-plugin-protobuf
+COPY fluent-plugin-events/ ./fluent-plugin-events
+
+RUN cd fluent-plugin-datapoint \
+ && gem build fluent-plugin-datapoint.gemspec -o ../fluent-plugin-datapoint.gem \
+ && cd ..
+RUN cd fluent-plugin-enhance-k8s-metadata \
+ && gem build fluent-plugin-enhance-k8s-metadata.gemspec -o ../fluent-plugin-enhance-k8s-metadata.gem \
+ && cd ..
+RUN cd fluent-plugin-events \
+ && gem build fluent-plugin-events.gemspec -o ../fluent-plugin-events.gem \
+ && cd ..
+RUN cd fluent-plugin-kubernetes-metadata-filter \
+ && gem build fluent-plugin-kubernetes-metadata-filter.gemspec -o ../fluent-plugin-kubernetes-metadata-filter.gem \
+ && cd ..
+RUN cd fluent-plugin-kubernetes-sumologic \
+ && gem build fluent-plugin-kubernetes-sumologic.gemspec -o ../fluent-plugin-kubernetes-sumologic.gem \
+ && cd ..
+RUN cd fluent-plugin-prometheus-format \
+ && gem build fluent-plugin-prometheus-format.gemspec -o ../fluent-plugin-prometheus-format.gem \
+ && cd ..
+RUN cd fluent-plugin-protobuf \
+ && gem build fluent-plugin-protobuf.gemspec -o ../fluent-plugin-protobuf.gem \
+ && cd ..
+
 RUN gem install \
         --local fluent-plugin-prometheus-format \
         --local fluent-plugin-kubernetes-metadata-filter \
@@ -51,7 +83,9 @@ RUN gem install \
         --local fluent-plugin-protobuf \
         --local fluent-plugin-events
 
-# Start with fresh image
+RUN rm -rf /usr/local/bundle/cache/* \
+ && find /usr/local/bundle/ -name "*.o" | xargs rm
+
 FROM fluent/fluentd:v1.11.5-debian-1.0
 
 USER root
@@ -60,13 +94,15 @@ RUN apt-get update \
  && apt-get install --yes --no-install-recommends \
         libsnappy-dev \
         curl \
-        jq
+        jq \
+ && rm -rf /var/lib/apt/lists/ \
+ && rm -rf /var/lib/dpkg/info/
 
-COPY --from=builder /usr/local/bundle /usr/local/bundle
+COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 COPY ./test/fluent.conf /fluentd/etc/
 COPY ./entrypoint.sh /bin/
 
-# Allow installing gems by fluent user
-RUN chown fluent /usr/local/bundle/*
-
 USER fluent
+
+ARG BUILD_TAG=latest
+ENV TAG $BUILD_TAG
