@@ -13,7 +13,7 @@ class TestDocker < Test::Unit::TestCase
   end
 
   def docker_tag
-    ENV['DOCKER_TAG'].nil? ? 'sumologic/kubernetes-fluentd' : ENV['DOCKER_TAG']
+    ENV['DOCKER_TAG'].nil? ? 'kubernetes-fluentd' : ENV['DOCKER_TAG']
   end
 
   def test_docker_image_exist
@@ -22,7 +22,7 @@ class TestDocker < Test::Unit::TestCase
   end
 
   def test_docker_image_runnable
-    id = `docker run -d --rm --name #{CONTAINER_NAME} #{docker_tag}:local`
+    id = `docker run -d --rm --name #{CONTAINER_NAME} #{docker_tag}:latest`
     assert !id.nil? && !id.empty?
     sleep_time = 15
     sleep sleep_time
