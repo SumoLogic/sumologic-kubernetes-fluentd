@@ -2,7 +2,7 @@
 
 ## Build
 
-```
+```shell
 docker build -t sumologic-kubernetes-fluentd .
 ```
 
