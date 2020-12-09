@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-kubernetes-sumologic"
-  spec.version       = "0.0.0"
+  spec.version       = "2.0.0"
   spec.authors       = ["Sumo Logic"]
   spec.email         = ["collection@sumologic.com"]
   spec.description   = %q{FluentD plugin to enrich logs with Sumo Logic specific metadata.}

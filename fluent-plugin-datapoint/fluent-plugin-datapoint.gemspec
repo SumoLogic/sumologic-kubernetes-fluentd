@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name    = "fluent-plugin-datapoint"
-  spec.version = "0.0.0"
+  spec.version = "2.0.0"
   spec.authors = ["Sumo Logic"]
   spec.email   = ["collection@sumologic.com"]
 
