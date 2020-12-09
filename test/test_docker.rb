@@ -24,15 +24,23 @@ class TestDocker < Test::Unit::TestCase
   def test_docker_image_runnable
     id = `docker run -d --rm --name #{CONTAINER_NAME} #{docker_tag}:latest`
     assert !id.nil? && !id.empty?
-    sleep_time = 15
-    sleep sleep_time
-    result = `docker ps --filter "name=#{CONTAINER_NAME}"`
-    assert(
-      result.include?(CONTAINER_NAME),
-      "container stopped after #{sleep_time} seconds"
-    )
-    logs = `docker logs #{CONTAINER_NAME}`
-    puts logs
-    assert logs.include?(DUMMY_OUTPUT)
+
+    for _ in 1..15 do
+      result = `docker ps --filter "name=#{CONTAINER_NAME}"`
+      if !result.include?(CONTAINER_NAME)
+        next
+      end
+
+      logs = `docker logs #{CONTAINER_NAME}`
+      if logs.include?(DUMMY_OUTPUT)
+        puts
+        puts logs
+        return
+      end
+
+      sleep 1
+    end
+
+    assert(false, "#{CONTAINER_NAME} didn't return expected output")
   end
 end
