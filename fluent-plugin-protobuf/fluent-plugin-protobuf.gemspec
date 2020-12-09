@@ -11,12 +11,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/SumoLogic/sumologic-kubernetes-collection"
   spec.license       = "Apache-2.0"
 
-  test_files, files  = `git ls-files -z`.split("\x0").partition do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.files         = files
-  spec.executables   = files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = test_files
+  spec.files         = Dir.glob(File.join('lib', '**', '*.rb'))
+  spec.executables   = []
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 2.0"

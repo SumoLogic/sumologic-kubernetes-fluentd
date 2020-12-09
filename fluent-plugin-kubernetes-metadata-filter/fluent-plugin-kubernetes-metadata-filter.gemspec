@@ -12,7 +12,8 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/fabric8io/fluent-plugin-kubernetes_metadata_filter"
   gem.license       = "Apache-2.0"
 
-  gem.files         = `git ls-files`.split($/)
+  gem.files         = Dir.glob(File.join('lib', '**', '*.rb'))
+  gem.executables   = []
 
   gem.required_ruby_version = '>= 2.5.0'
 
