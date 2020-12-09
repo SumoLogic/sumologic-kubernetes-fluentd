@@ -83,6 +83,9 @@ RUN gem install \
         --local fluent-plugin-protobuf \
         --local fluent-plugin-events
 
+RUN rm -rf /usr/local/bundle/cache/* \
+ && find /usr/local/bundle/ -name "*.o" | xargs rm
+
 FROM fluent/fluentd:v1.11.5-debian-1.0
 
 USER root
@@ -91,7 +94,9 @@ RUN apt-get update \
  && apt-get install --yes --no-install-recommends \
         libsnappy-dev \
         curl \
-        jq
+        jq \
+ && rm -rf /var/lib/apt/lists/ \
+ && rm -rf /var/lib/dpkg/info/
 
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 COPY ./test/fluent.conf /fluentd/etc/
