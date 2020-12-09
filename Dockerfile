@@ -52,26 +52,26 @@ COPY fluent-plugin-datapoint/ ./fluent-plugin-datapoint
 COPY fluent-plugin-protobuf/ ./fluent-plugin-protobuf
 COPY fluent-plugin-events/ ./fluent-plugin-events
 
-RUN cd fluent-plugin-datapoint 
- && gem build fluent-plugin-datapoint.gemspec -o ../fluent-plugin-datapoint.gem
- && cd .. \
- && cd fluent-plugin-enhance-k8s-metadata        
- && gem build fluent-plugin-enhance-k8s-metadata.gemspec -o ../fluent-plugin-enhance-k8s-metadata.gem 
- && cd .. \
- && cd fluent-plugin-events                      
- && gem build fluent-plugin-events.gemspec -o ../fluent-plugin-events.gem 
- && cd .. \
- && cd fluent-plugin-kubernetes-metadata-filter  
- && gem build fluent-plugin-kubernetes-metadata-filter.gemspec -o ../fluent-plugin-kubernetes-metadata-filter.gem 
- && cd .. \
- && cd fluent-plugin-kubernetes-sumologic        
- && gem build fluent-plugin-kubernetes-sumologic.gemspec -o ../fluent-plugin-kubernetes-sumologic.gem 
- && cd .. \
- && cd fluent-plugin-prometheus-format           
- && gem build fluent-plugin-prometheus-format.gemspec -o ../fluent-plugin-prometheus-format.gem 
- && cd .. \
- && cd fluent-plugin-protobuf                    
- && gem build fluent-plugin-protobuf.gemspec -o ../fluent-plugin-protobuf.gem 
+RUN cd fluent-plugin-datapoint \
+ && gem build fluent-plugin-datapoint.gemspec -o ../fluent-plugin-datapoint.gem \
+ && cd ..
+RUN cd fluent-plugin-enhance-k8s-metadata \
+ && gem build fluent-plugin-enhance-k8s-metadata.gemspec -o ../fluent-plugin-enhance-k8s-metadata.gem \
+ && cd ..
+RUN cd fluent-plugin-events \
+ && gem build fluent-plugin-events.gemspec -o ../fluent-plugin-events.gem \
+ && cd ..
+RUN cd fluent-plugin-kubernetes-metadata-filter \
+ && gem build fluent-plugin-kubernetes-metadata-filter.gemspec -o ../fluent-plugin-kubernetes-metadata-filter.gem \
+ && cd ..
+RUN cd fluent-plugin-kubernetes-sumologic \
+ && gem build fluent-plugin-kubernetes-sumologic.gemspec -o ../fluent-plugin-kubernetes-sumologic.gem \
+ && cd ..
+RUN cd fluent-plugin-prometheus-format \
+ && gem build fluent-plugin-prometheus-format.gemspec -o ../fluent-plugin-prometheus-format.gem \
+ && cd ..
+RUN cd fluent-plugin-protobuf \
+ && gem build fluent-plugin-protobuf.gemspec -o ../fluent-plugin-protobuf.gem \
  && cd ..
 
 RUN gem install \
@@ -98,3 +98,6 @@ COPY ./test/fluent.conf /fluentd/etc/
 COPY ./entrypoint.sh /bin/
 
 USER fluent
+
+ARG BUILD_TAG=latest
+ENV TAG $BUILD_TAG
