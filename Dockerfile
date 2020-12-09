@@ -104,7 +104,6 @@ RUN apt-get update \
  && rm -rf /var/lib/dpkg/info/
 
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
-COPY ./test/fluent.conf /fluentd/etc/
 COPY ./entrypoint.sh /bin/
 
 USER fluent

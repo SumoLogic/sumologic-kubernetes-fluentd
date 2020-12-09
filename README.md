@@ -8,4 +8,6 @@ docker build -t sumologic-kubernetes-fluentd .
 
 ## Test
 
-To be defined
+```shell
+ruby test/test_docker.rb
+```
