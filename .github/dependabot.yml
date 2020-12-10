@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/fluent-plugin-enhance-k8s-metadata"
+    schedule:
+      interval: "daily"
+      time: "6:00"
+      timezone: "Europe/Warsaw"
