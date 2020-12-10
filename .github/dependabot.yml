@@ -9,6 +9,11 @@ updates:
 
   - package-ecosystem: "docker"
     directory: "/"
+    ignore:
+      - dependency-name: "ruby"
+        versions:
+          - "2.7.x"
+          - "3.x"
     schedule:
       interval: "daily"
       time: "06:00"
