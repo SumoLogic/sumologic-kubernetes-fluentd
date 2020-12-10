@@ -35,11 +35,32 @@ image-test:
 	ruby test/test_docker.rb
 
 .PHONY: test
-test:
+test: test-fluent-plugin-datapoint test-fluent-plugin-enhance-k8s-metadata test-fluent-plugin-events test-fluent-plugin-kubernetes-metadata-filter test-fluent-plugin-kubernetes-sumologic test-fluent-plugin-prometheus-format test-fluent-plugin-protobuf
+
+.PHONY: test-fluent-plugin-datapoint
+test-fluent-plugin-datapoint:
 	( cd fluent-plugin-datapoint && bundle install && bundle exec rake )
+
+.PHONY: test-fluent-plugin-enhance-k8s-metadata
+test-fluent-plugin-enhance-k8s-metadata:
 	( cd fluent-plugin-enhance-k8s-metadata && bundle install && bundle exec rake )
+
+.PHONY: test-fluent-plugin-events
+test-fluent-plugin-events:
 	( cd fluent-plugin-events && bundle install && bundle exec rake )
+
+.PHONY: test-fluent-plugin-kubernetes-metadata-filter
+test-fluent-plugin-kubernetes-metadata-filter:
 	( cd fluent-plugin-kubernetes-metadata-filter && bundle install && bundle exec rake )
+
+.PHONY: test-fluent-plugin-kubernetes-sumologic
+test-fluent-plugin-kubernetes-sumologic:
 	( cd fluent-plugin-kubernetes-sumologic && bundle install && bundle exec rake )
+
+.PHONY: test-fluent-plugin-prometheus-format
+test-fluent-plugin-prometheus-format:
 	( cd fluent-plugin-prometheus-format && bundle install && bundle exec rake )
+
+.PHONY: test-fluent-plugin-protobuf
+test-fluent-plugin-protobuf:
 	( cd fluent-plugin-protobuf && bundle install && bundle exec rake )

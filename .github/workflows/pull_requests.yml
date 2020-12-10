@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  test:
+  test-fluent-plugin-datapoint:
     runs-on: ubuntu-20.04
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
@@ -16,12 +15,83 @@ jobs:
           ruby-version: '2.6'
       - name: Install bundler
         run: gem install bundler
-      - name: Test
-        run: make test
+      - name: Test fluent-plugin-datapoint
+        run: make test-fluent-plugin-datapoint
+
+  test-fluent-plugin-enhance-k8s-metadata:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test fluent-plugin-enhance-k8s-metadata
+        run: make test-fluent-plugin-enhance-k8s-metadata
+
+  test-fluent-plugin-events:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test fluent-plugin-events
+        run: make test-fluent-plugin-events
+
+  test-fluent-plugin-kubernetes-metadata-filter:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test fluent-plugin-kubernetes-metadata-filter
+        run: make test-fluent-plugin-kubernetes-metadata-filter
+
+  test-fluent-plugin-kubernetes-sumologic:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test fluent-plugin-kubernetes-sumologic
+        run: make test-fluent-plugin-kubernetes-sumologic
+
+  test-fluent-plugin-prometheus-format:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test fluent-plugin-prometheus-format
+        run: make test-fluent-plugin-prometheus-format
+
+  test-fluent-plugin-protobuf:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test fluent-plugin-protobuf
+        run: make test-fluent-plugin-protobuf
 
   image-test:
     runs-on: ubuntu-20.04
-
     steps:
       - uses: actions/checkout@v2
       - name: Build kubernetes-fluentd
