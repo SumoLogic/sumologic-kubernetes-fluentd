@@ -11,7 +11,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Test
+        run: make test
+
+  image:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
       - name: Build kubernetes-fluentd
         run: make build
-      - name: Test kubernetes-fluentd
-        run: make test
+      - name: Test kubernetes-fluentd image
+        run: make image-test

@@ -30,6 +30,16 @@ login:
 	aws ecr-public get-login-password --region us-east-1 \
 	| docker login --username AWS --password-stdin $(ECR_URL)
 
+.PHONY: image-test
+image-test:
+	ruby test/test_docker.rb
+
 .PHONY: test
 test:
-	ruby test/test_docker.rb
+	( cd fluent-plugin-datapoint && bundle install && bundle exec rake )
+	( cd fluent-plugin-enhance-k8s-metadata && bundle install && bundle exec rake )
+	( cd fluent-plugin-events && bundle install && bundle exec rake )
+	( cd fluent-plugin-kubernetes-metadata-filter && bundle install && bundle exec rake )
+	( cd fluent-plugin-kubernetes-sumologic && bundle install && bundle exec rake )
+	( cd fluent-plugin-prometheus-format && bundle install && bundle exec rake )
+	( cd fluent-plugin-protobuf && bundle install && bundle exec rake )
