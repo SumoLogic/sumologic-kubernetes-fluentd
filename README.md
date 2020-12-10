@@ -3,11 +3,11 @@
 ## Build
 
 ```shell
-docker build -t sumologic-kubernetes-fluentd .
+make build
 ```
 
 ## Test
 
 ```shell
-ruby test/test_docker.rb
+make test
 ```
