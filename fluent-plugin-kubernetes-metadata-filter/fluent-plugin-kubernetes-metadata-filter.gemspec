@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "bundler", "~> 2.0"
   gem.add_development_dependency "rake"
-  gem.add_development_dependency "minitest", "~> 4.0"
+  gem.add_development_dependency "minitest", "~> 5.14"
   gem.add_development_dependency "test-unit", "~> 3.0.2"
   gem.add_development_dependency "test-unit-rr", "~> 1.0.3"
   gem.add_development_dependency "copyright-header"
