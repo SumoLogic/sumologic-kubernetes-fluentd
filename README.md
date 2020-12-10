@@ -1,4 +1,5 @@
-# sumologic-kubernetes-fluentd ![Dev builds](https://github.com/SumoLogic/sumologic-kubernetes-fluentd/workflows/Dev%20builds/badge.svg)
+# sumologic-kubernetes-fluentd ![Dev builds](https://github.com/SumoLogic/sumologic-kubernetes-fluentd/workflows/Dev%20builds/badge.svg) [![GitHub tag](https://img.shields.io/github/tag/SumoLogic/sumologic-kubernetes-fluentd.svg)](https://gitHub.com/SumoLogic/sumologic-kubernetes-fluentd/tags/)
+
 
 This repository contains fluentd-plugins which are bundled into a custom
 [Fluentd](https://github.com/fluent/fluentd) image which is being used by
