@@ -35,12 +35,12 @@ RUN gem install \
 
 # FluentD plugins from RubyGems
 RUN gem install \
-        fluent-plugin-systemd:1.0.2 \
-        fluent-plugin-record-modifier:2.0.1 \
-        fluent-plugin-sumologic_output:1.7.1 \
         fluent-plugin-concat:2.4.0 \
+        fluent-plugin-prometheus:1.6.1 \
+        fluent-plugin-record-modifier:2.0.1 \
         fluent-plugin-rewrite-tag-filter:2.2.0 \
-        fluent-plugin-prometheus:1.6.1
+        fluent-plugin-sumologic_output:1.7.1 \
+        fluent-plugin-systemd:1.0.2
 
 WORKDIR /sumologic-kubernetes-fluentd
 
@@ -80,13 +80,13 @@ RUN cd fluent-plugin-protobuf \
  && cd ..
 
 RUN gem install \
-        --local fluent-plugin-prometheus-format \
+        --local fluent-plugin-datapoint \
+        --local fluent-plugin-enhance-k8s-metadata \
+        --local fluent-plugin-events \
         --local fluent-plugin-kubernetes-metadata-filter \
         --local fluent-plugin-kubernetes-sumologic \
-        --local fluent-plugin-enhance-k8s-metadata \
-        --local fluent-plugin-datapoint \
-        --local fluent-plugin-protobuf \
-        --local fluent-plugin-events
+        --local fluent-plugin-prometheus-format \
+        --local fluent-plugin-protobuf
 
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
