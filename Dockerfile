@@ -1,9 +1,4 @@
-# TODO: Use BuildKit cache from previously pushed image
-# TODO: Check if it's possible to use ruby:2.6 Docker image here
-FROM fluent/fluentd:v1.11.5-debian-1.0 AS builder
-
-# Use root account to use apt
-USER root
+FROM ruby:2.6 AS builder
 
 # Dependencies
 RUN apt-get update \
