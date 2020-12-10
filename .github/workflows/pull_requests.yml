@@ -19,7 +19,7 @@ jobs:
       - name: Test
         run: make test
 
-  image:
+  image-test:
     runs-on: ubuntu-20.04
 
     steps:
