@@ -20,9 +20,22 @@ build:
 		--tag $(IMAGE_NAME):$(BUILD_TAG) \
 		.
 
-push:
+build-release-image:
+	DOCKER_BUILDKIT=1 docker build \
+		--tag $(IMAGE_NAME):$(BUILD_TAG) \
+		.
+
+tag-release-image-with-latest:
+	docker tag $(IMAGE_NAME):$(BUILD_TAG) $(REPO_URL):latest
+	docker push $(REPO_URL):latest
+
+push-image-cache:
 	docker tag $(IMAGE_NAME):$(BUILD_CACHE_TAG) $(REPO_URL):$(BUILD_CACHE_TAG)
 	docker push $(REPO_URL):$(BUILD_CACHE_TAG)
+	docker tag $(IMAGE_NAME):$(BUILD_TAG) $(REPO_URL):dev-latest
+	docker push $(REPO_URL):dev-latest
+
+push-image:
 	docker tag $(IMAGE_NAME):$(BUILD_TAG) $(REPO_URL):$(BUILD_TAG)
 	docker push $(REPO_URL):$(BUILD_TAG)
 

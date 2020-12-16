@@ -4,9 +4,6 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
 
 jobs:
   build:
@@ -19,7 +16,7 @@ jobs:
       - name: Print tag
         run: echo "Running release build for ${{ steps.extract_tag.outputs.tag }}"
       - name: Build kubernetes-fluentd
-        run: make build BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
+        run: make build-release-image BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
       # We need to install awscli v1 via pip because it contains a version
       # that supports ecr-public while github actions environment on Ubuntu 20.04
       # contains aws v2.1.4 which doesn't know about it yet.
@@ -35,4 +32,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_PUBLIC_ECR_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_PUBLIC_ECR_SECRET_ACCESS_KEY }}
       - name: Push kubernetes-fluentd
-        run: make push BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
+        run: make push-image BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
+      - name: Tag latest to point to the most recent release
+        run: make tag-release-image-with-latest BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
