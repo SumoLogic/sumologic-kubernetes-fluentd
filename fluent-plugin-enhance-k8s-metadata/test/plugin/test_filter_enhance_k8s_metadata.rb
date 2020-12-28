@@ -62,7 +62,7 @@ class EnhanceK8sMetadataFilterTest < Test::Unit::TestCase
       assert_equal 'ip-172-20-62-242.us-west-1.compute.internal', record['node']
     end
 
-    test 'does not attach node metadata to metrics when not found' do
+    test 'do not attach node metadata to metrics when not found' do
       conf = %{
         kubernetes_url http://localhost:8080
         data_type metrics
