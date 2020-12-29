@@ -29,7 +29,7 @@ GEM
     serverengine (2.2.2)
       sigdump (~> 0.2.2)
     sigdump (0.2.4)
-    snappy (0.1.0)
+    snappy (0.2.0)
     strptime (0.2.5)
     test-unit (3.3.9)
       power_assert
