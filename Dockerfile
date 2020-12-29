@@ -1,4 +1,4 @@
-FROM ruby:2.6.6 AS builder
+FROM ruby:3.0.0 AS builder
 
 # Dependencies
 RUN apt-get update \
