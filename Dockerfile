@@ -15,6 +15,7 @@ RUN apt-get update \
 
 # Fluentd plugin dependencies
 RUN gem install \
+        fluentd:1.11.5 \
         concurrent-ruby:1.1.5 \
         google-protobuf:3.9.2 \
         kubeclient:4.9.1 \
