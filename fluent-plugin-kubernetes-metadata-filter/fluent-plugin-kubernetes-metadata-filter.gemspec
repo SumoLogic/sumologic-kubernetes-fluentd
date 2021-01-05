@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.5.0'
 
-  gem.add_runtime_dependency 'fluentd', ['>= 0.14.0', '< 1.12']
+  gem.add_runtime_dependency 'fluentd', '>= 0.14.0', '< 1.13'
   gem.add_runtime_dependency "lru_redux"
   gem.add_runtime_dependency "kubeclient", '< 5'
 
