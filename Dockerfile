@@ -15,7 +15,7 @@ RUN apt-get update \
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.11.5 \
+        fluentd:1.12.0 \
         concurrent-ruby:1.1.5 \
         google-protobuf:3.9.2 \
         kubeclient:4.9.1 \
@@ -87,7 +87,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.11.5-debian-1.0
+FROM fluent/fluentd:v1.12.0-debian-1.0
 
 USER root
 
