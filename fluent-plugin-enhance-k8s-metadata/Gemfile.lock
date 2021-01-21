@@ -12,7 +12,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     cool.io (1.7.0)
     crack (0.4.5)
       rexml
