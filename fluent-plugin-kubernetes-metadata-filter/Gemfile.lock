@@ -92,7 +92,7 @@ GEM
       netrc (~> 0.8)
     rexml (3.2.4)
     rr (1.2.1)
-    rubocop (1.9.0)
+    rubocop (1.9.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
