@@ -13,17 +13,18 @@ class TestDocker < Test::Unit::TestCase
     system("docker rm -f #{CONTAINER_NAME}", out: File::NULL, err: File::NULL)
   end
 
-  def docker_tag
-    ENV['DOCKER_TAG'].nil? ? 'kubernetes-fluentd' : ENV['DOCKER_TAG']
+  def image_name
+    ENV['IMAGE_NAME'].nil? ? 'kubernetes-fluentd:latest' : ENV['IMAGE_NAME']
   end
 
   def test_docker_image_exist
-    result = `docker images`
-    assert result.include?(docker_tag)
+    puts "Testing image '#{image_name}'"
+    result = `docker images --format "{{.Repository}}:{{.Tag}}"`
+    assert result.include?(image_name)
   end
 
   def test_docker_image_runnable
-    id = `docker run -d --rm #{MOUNT_FLAGS} --name #{CONTAINER_NAME} #{docker_tag}:latest`
+    id = `docker run -d --rm #{MOUNT_FLAGS} --name #{CONTAINER_NAME} #{image_name}`
     assert !id.nil? && !id.empty?
 
     for _ in 1..15 do
