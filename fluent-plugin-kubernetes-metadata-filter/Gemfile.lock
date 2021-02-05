@@ -16,7 +16,7 @@ PATH
     fluent-plugin-kubernetes-metadata-filter (2.5.3)
       fluentd (>= 0.14.0, < 1.13)
       lru_redux
-      net-http-persistent (~> 3.1)
+      net-http-persistent (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -87,7 +87,7 @@ GEM
     msgpack (1.4.2)
     multi_json (1.15.0)
     multipart-post (2.1.1)
-    net-http-persistent (3.1.0)
+    net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     parallel (1.20.1)
     parser (3.0.0.0)
