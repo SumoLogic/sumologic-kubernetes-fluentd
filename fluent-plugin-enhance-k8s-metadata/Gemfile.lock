@@ -17,7 +17,7 @@ PATH
       concurrent-ruby (~> 1.1)
       fluentd (>= 0.14.10, < 2)
       lru_redux (~> 1.1.0)
-      net-http-persistent (~> 3.1)
+      net-http-persistent (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -71,7 +71,7 @@ GEM
     msgpack (1.4.2)
     multi_json (1.15.0)
     multipart-post (2.1.1)
-    net-http-persistent (3.1.0)
+    net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     power_assert (1.2.0)
     public_suffix (4.0.6)
