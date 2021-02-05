@@ -19,7 +19,7 @@ RUN gem install \
         concurrent-ruby:1.1.5 \
         google-protobuf:3.9.2 \
         lru_redux:1.1.0 \
-        net-http-persistent:3.1.0 \
+        net-http-persistent:4.0.1 \
         snappy:0.0.17 \
         specific_install:0.3.5
 
