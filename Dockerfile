@@ -102,7 +102,7 @@ RUN apt-get update \
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 COPY ./entrypoint.sh /bin/
 
-USER fluent
+USER 999:999
 
 ARG BUILD_TAG=latest
 ENV TAG $BUILD_TAG
