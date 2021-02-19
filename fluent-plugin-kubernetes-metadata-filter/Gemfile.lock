@@ -30,7 +30,7 @@ GEM
       simplecov (<= 0.13)
     concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
-    cool.io (1.7.0)
+    cool.io (1.7.1)
     copyright-header (1.0.22)
       github-linguist
     crack (0.4.5)
@@ -50,7 +50,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    fluentd (1.12.0)
+    fluentd (1.12.1)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -114,7 +114,7 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
     rugged (1.1.0)
-    serverengine (2.2.2)
+    serverengine (2.2.3)
       sigdump (~> 0.2.2)
     sigdump (0.2.4)
     simplecov (0.13.0)
