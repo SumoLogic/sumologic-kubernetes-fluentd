@@ -17,7 +17,7 @@ RUN apt-get update \
 RUN gem install \
         fluentd:1.12.1 \
         concurrent-ruby:1.1.8 \
-        google-protobuf:3.15.2 \
+        google-protobuf:3.15.3 \
         lru_redux:1.1.0 \
         net-http-persistent:4.0.1 \
         snappy:0.0.17 \
