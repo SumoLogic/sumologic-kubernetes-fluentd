@@ -10,7 +10,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    codecov (0.4.3)
+    codecov (0.5.0)
       simplecov (>= 0.15, < 0.22)
     concurrent-ruby (1.1.8)
     cool.io (1.7.1)
