@@ -100,6 +100,8 @@ RUN apt-get update \
         libsnappy-dev \
         curl \
         jq \
+ && apt-get install --yes --only-upgrade \
+        linux-libc-dev \
  && rm -rf /var/lib/apt/lists/ \
  && rm -rf /var/lib/dpkg/info/
 
