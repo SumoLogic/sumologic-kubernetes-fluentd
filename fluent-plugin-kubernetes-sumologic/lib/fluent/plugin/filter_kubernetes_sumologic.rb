@@ -36,10 +36,6 @@ module Fluent::Plugin
       super
     end
 
-    def is_number?(string)
-      true if Float(string) rescue false
-    end
-
     def sanitize_pod_name(k8s_metadata)
       # Strip out dynamic bits from pod name.
       # NOTE: Kubernetes deployments append a template hash.
