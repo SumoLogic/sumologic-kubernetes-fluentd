@@ -195,13 +195,9 @@ module Fluent::Plugin
         unless annotations["sumologic.com/sourceName"].nil?
           sumo_metadata[:source] = annotations["sumologic.com/sourceName"]
         end
-        unless annotations["sumologic.com/sourceCategory"].nil?
-          sumo_metadata[:category] = annotations["sumologic.com/sourceCategory"].dup.prepend(@source_category_prefix)
-        end
         sumo_metadata[:host] = sumo_metadata[:host] % k8s_metadata
         sumo_metadata[:source] = sumo_metadata[:source] % k8s_metadata
-        sumo_metadata[:category] = sumo_metadata[:category] % k8s_metadata
-        sumo_metadata[:category].gsub!("-", @source_category_replace_dash)
+        sumo_metadata[:category] = get_source_category(annotations, k8s_metadata)
 
         # Strip sumologic.com annotations
         # Note (sam 10/9/19): we're stripping from the copy, so this has no effect on output
@@ -244,6 +240,29 @@ module Fluent::Plugin
         sumo_metadata[:fields] = log_fields.select{|k,v| !(v.nil? || v.empty?)}.map{|k,v| "#{k}=#{v}"}.join(',')
       end
       record
+    end
+
+    # Returns source category for the record, taking into account the plugin's settings and the pod's annotations.
+    def get_source_category(annotations, k8s_metadata)
+      if !annotations["sumologic.com/sourceCategory"].nil?
+        source_category = annotations["sumologic.com/sourceCategory"].dup
+      elsif !@source_category.nil?
+        source_category = @source_category.dup
+      else
+        source_category = nil
+      end
+
+      return source_category if source_category.nil?
+
+      source_category_prefix = annotations["sumologic.com/sourceCategoryPrefix"] || @source_category_prefix
+      source_category = source_category.prepend(source_category_prefix) unless source_category_prefix.nil?
+
+      source_category = source_category % k8s_metadata
+
+      source_category_replace_dash = annotations["sumologic.com/sourceCategoryReplaceDash"] || @source_category_replace_dash
+      source_category.gsub!("-", source_category_replace_dash) unless source_category_replace_dash.nil?
+
+      source_category
     end
   end
 end
