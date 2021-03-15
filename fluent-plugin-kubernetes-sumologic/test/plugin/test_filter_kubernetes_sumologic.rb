@@ -955,6 +955,25 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     assert_equal(expected, d.filtered_records[0])
   end
 
+  test "test_source_category_prefix_annotation" do
+    conf = %{
+      source_category should/not/be/used
+    }
+    d = create_driver(conf)
+    time = @time
+    input = default_input()
+    input["kubernetes"]["annotations"] = {
+      "sumologic.com/sourceCategoryPrefix" => "prefix/from/annotation/"
+    }
+    d.run do
+      d.feed("filter.test", time, input)
+    end
+    expected = default_expected()
+    expected = 
+    assert_equal(1, d.filtered_records.size)
+    assert_equal("prefix/from/annotation/", d.filtered_records[0]["_sumo_metadata"][:category])
+  end
+
   test "test_sourcehost_using_pod_id" do
     conf = %{
       source_host %{pod_id}
@@ -1413,5 +1432,60 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     }
     assert_equal(1, d.filtered_records.size)
     assert_equal(expected, d.filtered_records[0])
+  end
+
+  def default_input
+    {
+        "timestamp" => 1538677347823,
+        "log" => "some message",
+        "stream" => "stdout",
+        "docker" => {
+            "container_id" => "5c280b6ad5abec32e9af729295c20f60fbeadf3ba16fda2d121f87228e6822e0",
+        },
+        "kubernetes" => {
+            "container_name" => "log-format-labs",
+            "namespace_name" => "default",
+            "pod_name" => "log-format-labs-54575ccdb9-9d677",
+            "pod_id" => "170af806-c801-11e8-9009-025000000001",
+            "labels" => {
+                "pod-template-hash" => "1013177865",
+                "run" => "log-format-labs",
+            },
+            "host" => "docker-for-desktop",
+            "master_url" => "https://10.96.0.1:443/api",
+            "namespace_id" => "e8572415-9596-11e8-b28b-025000000001",
+        },
+    }
+  end
+
+  def default_expected
+    {
+      "timestamp" => 1538677347823,
+      "log" => "some message",
+      "stream" => "stdout",
+      "docker" => {
+        "container_id" => "5c280b6ad5abec32e9af729295c20f60fbeadf3ba16fda2d121f87228e6822e0",
+      },
+      "kubernetes" => {
+        "container_name" => "log-format-labs",
+        "namespace_name" => "default",
+        "pod_name" => "log-format-labs-54575ccdb9-9d677",
+        "pod_id" => "170af806-c801-11e8-9009-025000000001",
+        "labels" => {
+          "pod-template-hash" => "1013177865",
+          "run" => "log-format-labs",
+        },
+        "host" => "docker-for-desktop",
+        "master_url" => "https://10.96.0.1:443/api",
+        "namespace_id" => "e8572415-9596-11e8-b28b-025000000001",
+      },
+      "_sumo_metadata" => {
+        :category => "kubernetes/default/log/format/labs",
+        :host => "",
+        :log_format => "json",
+        :source => "default.log-format-labs-54575ccdb9-9d677.log-format-labs",
+        :fields => "container_id=5c280b6ad5abec32e9af729295c20f60fbeadf3ba16fda2d121f87228e6822e0,pod_labels_pod-template-hash=1013177865,pod_labels_run=log-format-labs,container=log-format-labs,namespace=default,pod=log-format-labs-54575ccdb9-9d677,pod_id=170af806-c801-11e8-9009-025000000001,host=docker-for-desktop,master_url=https://10.96.0.1:443/api,namespace_id=e8572415-9596-11e8-b28b-025000000001,node=docker-for-desktop"
+      }
+    }
   end
 end
