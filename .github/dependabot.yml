@@ -63,6 +63,8 @@ updates:
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-protobuf"
+    ignore:
+      - dependency-name: "google-protobuf"
     schedule:
       interval: "daily"
       time: "06:00"
