@@ -17,7 +17,7 @@ module Fluent
       def parse(text)
         inflated = Snappy.inflate(text)
         decoded = WriteRequest.decode(inflated)
-        log.trace "protobuf::parse - in: (#{text.bytesize}/#{inflated.bytesize}), out: #{decoded.timeseries.length}"
+        log.trace { "protobuf::parse - in: (#{text.bytesize}/#{inflated.bytesize}), out: #{decoded.timeseries.length}" }
         record = {}
         record[KEY_TIMESERIES] = decoded.timeseries
         yield Fluent::EventTime.now, record
