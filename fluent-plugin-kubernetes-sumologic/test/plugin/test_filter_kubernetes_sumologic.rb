@@ -968,8 +968,6 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     d.run do
       d.feed("filter.test", time, input)
     end
-    expected = default_expected()
-    expected = 
     assert_equal(1, d.filtered_records.size)
     assert_equal("prefix/from/annotation/default/log/format/labs", d.filtered_records[0]["_sumo_metadata"][:category])
   end
@@ -989,8 +987,6 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     d.run do
       d.feed("filter.test", time, input)
     end
-    expected = default_expected()
-    expected = 
     assert_equal(1, d.filtered_records.size)
     assert_equal("prefix/from/annotation/category/from/annotation", d.filtered_records[0]["_sumo_metadata"][:category])
   end
@@ -1008,8 +1004,6 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     d.run do
       d.feed("filter.test", time, input)
     end
-    expected = default_expected()
-    expected = 
     assert_equal(1, d.filtered_records.size)
     assert_equal("kubernetes/default/log+format+labs", d.filtered_records[0]["_sumo_metadata"][:category])
   end
@@ -1029,8 +1023,6 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     d.run do
       d.feed("filter.test", time, input)
     end
-    expected = default_expected()
-    expected = 
     assert_equal(1, d.filtered_records.size)
     assert_equal("ns:default,pod:log/format/labs", d.filtered_records[0]["_sumo_metadata"][:category])
   end
