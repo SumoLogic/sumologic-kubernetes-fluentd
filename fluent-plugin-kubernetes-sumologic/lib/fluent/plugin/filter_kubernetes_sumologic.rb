@@ -31,6 +31,8 @@ module Fluent::Plugin
     config_param :source_name_key_name, :string, :default => '_sourceName'
     config_param :collector_key_name, :string, :default => '_collector'
     config_param :collector_value, :string, :default => 'undefined'
+    config_param :per_container_annotations_enabled, :bool, :default => true
+    config_param :per_container_annotation_prefixes, :array, :default => ["tailing-sidecar/"]
 
     def configure(conf)
       super
@@ -244,6 +246,9 @@ module Fluent::Plugin
 
     # Returns source category for the record, taking into account the plugin's settings and the pod's annotations.
     def get_source_category(annotations, k8s_metadata)
+      container_source_category = get_container_source_category(annotations, k8s_metadata)
+      return container_source_category unless container_source_category.nil?
+
       if !annotations["sumologic.com/sourceCategory"].nil?
         source_category = annotations["sumologic.com/sourceCategory"].dup
       elsif !@source_category.nil?
@@ -263,6 +268,23 @@ module Fluent::Plugin
       source_category.gsub!("-", source_category_replace_dash) unless source_category_replace_dash.nil?
 
       source_category
+    end
+
+    # Returns source category for the record, taking into account container-specific annotations as defined in @per_container_annotations_enabled and @per_container_annotation_prefixes.
+    def get_container_source_category(annotations, k8s_metadata)
+      return nil unless @per_container_annotations_enabled
+
+      container_name = k8s_metadata[:container]
+      return nil if container_name.nil?
+
+      annotation_value = nil
+      @per_container_annotation_prefixes.each do |prefix|
+        annotation_key = "#{prefix}#{container_name}.sourceCategory"
+        annotation_value = annotations[annotation_key]
+        break unless annotation_value.nil?
+      end
+
+      return annotation_value
     end
   end
 end
