@@ -31,8 +31,8 @@ module Fluent::Plugin
     config_param :source_name_key_name, :string, :default => '_sourceName'
     config_param :collector_key_name, :string, :default => '_collector'
     config_param :collector_value, :string, :default => 'undefined'
-    config_param :per_container_annotations_enabled, :bool, :default => true
-    config_param :per_container_annotation_prefixes, :array, :default => ["tailing-sidecar/"]
+    config_param :per_container_annotations_enabled, :bool, :default => false
+    config_param :per_container_annotation_prefixes, :array, :default => []
 
     def configure(conf)
       super

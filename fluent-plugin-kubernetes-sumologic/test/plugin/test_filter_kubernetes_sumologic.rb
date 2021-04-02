@@ -1027,8 +1027,81 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     assert_equal("ns:default,pod:log/format/labs", d.filtered_records[0]["_sumo_metadata"][:category])
   end
 
-  test "test_per_container_annotations_with_default_settings" do
+  test "test_per_container_annotations_disabled_by_default" do
     conf = %{}
+    d = create_driver(conf)
+    time = @time
+    input = default_input()
+    input["kubernetes"]["annotations"] = {
+      "log-format-labs.sourceCategory" => "cus:tom_source/cate-gory",
+      "tailing-sidecar/log-format-labs.sourceCategory" => "cus:tom_source/cate-gory",
+    }
+    d.run do
+      d.feed("filter.test", time, input)
+    end
+    assert_equal(1, d.filtered_records.size)
+    assert_equal(default_expected()["_sumo_metadata"][:category], d.filtered_records[0]["_sumo_metadata"][:category])
+  end
+
+  test "test_per_container_annotations_with_prefixes_as_empty_string" do
+    conf = %{
+      per_container_annotations_enabled true
+      per_container_annotation_prefixes ""
+    }
+    d = create_driver(conf)
+    time = @time
+    input = default_input()
+    input["kubernetes"]["annotations"] = {
+      "log-format-labs.sourceCategory" => "cus:tom_source/cate-gory",
+    }
+    d.run do
+      d.feed("filter.test", time, input)
+    end
+    assert_equal(1, d.filtered_records.size)
+    assert_equal(default_expected()["_sumo_metadata"][:category], d.filtered_records[0]["_sumo_metadata"][:category])
+  end
+
+  test "test_per_container_annotations_with_prefixes_as_empty_array" do
+    conf = %{
+      per_container_annotations_enabled true
+      per_container_annotation_prefixes []
+    }
+    d = create_driver(conf)
+    time = @time
+    input = default_input()
+    input["kubernetes"]["annotations"] = {
+      "log-format-labs.sourceCategory" => "cus:tom_source/cate-gory",
+    }
+    d.run do
+      d.feed("filter.test", time, input)
+    end
+    assert_equal(1, d.filtered_records.size)
+    assert_equal(default_expected()["_sumo_metadata"][:category], d.filtered_records[0]["_sumo_metadata"][:category])
+  end
+
+  test "test_per_container_annotations_with_prefixes_as_array_with_empty_string" do
+    conf = %{
+      per_container_annotations_enabled true
+      per_container_annotation_prefixes [""]
+    }
+    d = create_driver(conf)
+    time = @time
+    input = default_input()
+    input["kubernetes"]["annotations"] = {
+      "log-format-labs.sourceCategory" => "cus:tom_source/cate-gory",
+    }
+    d.run do
+      d.feed("filter.test", time, input)
+    end
+    assert_equal(1, d.filtered_records.size)
+    assert_equal("cus:tom_source/cate-gory", d.filtered_records[0]["_sumo_metadata"][:category])
+  end
+
+  test "test_per_container_annotations_enabled" do
+    conf = %{
+      per_container_annotations_enabled true
+      per_container_annotation_prefixes "tailing-sidecar/"
+    }
     d = create_driver(conf)
     time = @time
     input = default_input()
@@ -1042,43 +1115,9 @@ class SumoContainerOutputTest < Test::Unit::TestCase
     assert_equal("cus:tom_source/cate-gory", d.filtered_records[0]["_sumo_metadata"][:category])
   end
 
-  test "test_per_container_annotations_disabled" do
-    conf = %{
-      per_container_annotations_enabled false
-    }
-    d = create_driver(conf)
-    time = @time
-    input = default_input()
-    input["kubernetes"]["annotations"] = {
-      "tailing-sidecar/log-format-labs.sourceCategory" => "cus:tom_source/cate-gory",
-    }
-    d.run do
-      d.feed("filter.test", time, input)
-    end
-    assert_equal(1, d.filtered_records.size)
-    assert_equal(default_expected()["_sumo_metadata"][:category], d.filtered_records[0]["_sumo_metadata"][:category])
-  end
-
-  test "test_per_container_annotations_with_custom_prefix" do
-    conf = %{
-      per_container_annotation_prefixes ["custom-prefix/"]
-    }
-    d = create_driver(conf)
-    time = @time
-    input = default_input()
-    input["kubernetes"]["annotations"] = {
-      "tailing-sidecar/log-format-labs.sourceCategory" => "not-expected",
-      "custom-prefix/log-format-labs.sourceCategory" => "expected-category",
-    }
-    d.run do
-      d.feed("filter.test", time, input)
-    end
-    assert_equal(1, d.filtered_records.size)
-    assert_equal("expected-category", d.filtered_records[0]["_sumo_metadata"][:category])
-  end
-
   test "test_per_container_annotations_prefix_precedence" do
     conf = %{
+      per_container_annotations_enabled true
       per_container_annotation_prefixes ["more/important/", "less/important/", "least/important/"]
     }
     d = create_driver(conf)
