@@ -2,7 +2,7 @@
 
 [Fluentd](https://fluentd.org/) filter plugin to enrich logs with Sumo Logic specific metadata.
 
-Decorates records with a `_sumo_metadata` property with Sumo Logic specifc metadata
+Decorates records with a `_sumo_metadata` property with Sumo Logic specific metadata
 like `_sourceCategory`, `_sourceHost`, `_sourceName` and others.
 
 ## Exclusion and inclusion rules
