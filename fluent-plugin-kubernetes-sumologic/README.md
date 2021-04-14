@@ -33,13 +33,13 @@ it is possible to set pod annotations that are container-specific.
 Let's look at an example. Assuming this plugin is configured with the following properties:
 
 - `per_container_annotations_enabled` is set to `true`,
-- `per_container_annotation_prefixes` is set to `["tailing-sidecar/", "something-else:"]`,
+- `per_container_annotation_prefixes` is set to `["sumologic.com/"]`,
 
 and assuming there's a pod running that has containers named `container-name-1` and `container-name-2` in it,
 setting the following annotations on the pod:
 
-- `tailing-sidecar/container-name-1.sourceCategory` with the value of `first_source-category`
-- `something-else:container-name-2.sourceCategory` with the value of `another/source-category`
+- `sumologic.com/container-name-1.sourceCategory` with the value of `first_source-category`
+- `sumologic.com/container-name-2.sourceCategory` with the value of `another/source-category`
 
 will make the logs from `container-name-1` be tagged with source category `first_source-category`
 and logs from `container-name-2` be tagged with source category `another/source-category`.
