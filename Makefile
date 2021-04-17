@@ -30,6 +30,9 @@ login:
 	aws ecr-public get-login-password --region us-east-1 \
 	| docker login --username AWS --password-stdin $(ECR_URL)
 
+build-push-multiplatform:
+	REPO_URL=$(REPO_URL) BUILD_TAG=$(BUILD_TAG) ./ci/build-push-multiplatform.sh
+
 .PHONY: image-test
 image-test:
 	ruby test/test_docker.rb

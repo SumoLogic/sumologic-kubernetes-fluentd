@@ -1,3 +1,4 @@
+ARG FLUENTD_ARCH
 FROM ruby:2.6.6 AS builder
 
 # Dependencies
@@ -91,7 +92,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.12.2-debian-1.1
+FROM fluent/fluentd:v1.12.2-debian${FLUENTD_ARCH}-1.1
 
 USER root
 
