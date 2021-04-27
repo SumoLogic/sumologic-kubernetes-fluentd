@@ -23,5 +23,5 @@ apt-get install -y make
 
 # install requirements for ruby
 snap install ruby --channel=2.6/stable --classic
-gem install bundler:2.1.4
+su vagrant -c 'gem install bundler:2.1.4'
 apt install -y gcc g++ libsnappy-dev libicu-dev zlib1g-dev cmake pkg-config libssl-dev
