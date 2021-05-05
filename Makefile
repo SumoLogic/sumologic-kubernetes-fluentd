@@ -3,6 +3,8 @@ BUILD_CACHE_TAG = latest-builder-cache
 IMAGE_NAME = kubernetes-fluentd
 ECR_URL = public.ecr.aws/sumologic
 REPO_URL = $(ECR_URL)/$(IMAGE_NAME)
+OPENSOURCE_ECR_URL = public.ecr.aws/a4t4y2n3
+OPENSOURCE_REPO_URL = $(OPENSOURCE_ECR_URL)/$(IMAGE_NAME)
 
 build:
 	DOCKER_BUILDKIT=1 docker build \
@@ -32,6 +34,13 @@ login:
 
 build-push-multiplatform:
 	REPO_URL=$(REPO_URL) BUILD_TAG=$(BUILD_TAG) ./ci/build-push-multiplatform.sh
+
+login-opensource:
+	aws ecr-public get-login-password --region us-east-1 \
+	| docker login --username AWS --password-stdin $(OPENSOURCE_ECR_URL)
+
+build-push-multiplatform-opensource:
+	REPO_URL=$(OPENSOURCE_REPO_URL) BUILD_TAG=$(BUILD_TAG) ./ci/build-push-multiplatform.sh
 
 .PHONY: image-test
 image-test:
