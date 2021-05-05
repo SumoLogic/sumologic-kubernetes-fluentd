@@ -1,7 +1,7 @@
 BUILD_TAG ?= latest
 BUILD_CACHE_TAG = latest-builder-cache
 IMAGE_NAME = kubernetes-fluentd
-ECR_URL = public.ecr.aws/sumologic
+ECR_URL = public.ecr.aws/u5z5f8z6
 REPO_URL = $(ECR_URL)/$(IMAGE_NAME)
 OPENSOURCE_ECR_URL = public.ecr.aws/a4t4y2n3
 OPENSOURCE_REPO_URL = $(OPENSOURCE_ECR_URL)/$(IMAGE_NAME)
