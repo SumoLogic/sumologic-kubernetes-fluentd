@@ -41,3 +41,12 @@ jobs:
 
       - name: Build and push image
         run: make build-push-multiplatform BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
+
+      - name: Login to Open Source ECR
+        run: make login-opensource
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.OPENSOURCE_ECR_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.OPENSOURCE_ECR_SECRET_ACCESS_KEY }}
+
+      - name: Build and push image to Open Source ECR
+        run: make build-push-multiplatform-opensource BUILD_TAG=${{ steps.extract_tag.outputs.tag }}
