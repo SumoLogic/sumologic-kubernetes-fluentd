@@ -9,7 +9,7 @@ jobs:
   test-fluent-plugin-datapoint:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -21,7 +21,7 @@ jobs:
   test-fluent-plugin-enhance-k8s-metadata:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -33,7 +33,7 @@ jobs:
   test-fluent-plugin-events:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -45,7 +45,7 @@ jobs:
   test-fluent-plugin-kubernetes-metadata-filter:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -57,7 +57,7 @@ jobs:
   test-fluent-plugin-kubernetes-sumologic:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -69,7 +69,7 @@ jobs:
   test-fluent-plugin-prometheus-format:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -81,7 +81,7 @@ jobs:
   test-fluent-plugin-protobuf:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: '2.6'
@@ -93,7 +93,7 @@ jobs:
   image-test:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - name: Build kubernetes-fluentd
         run: make build
       - name: Test kubernetes-fluentd image
