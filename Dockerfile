@@ -103,6 +103,8 @@ RUN apt-get update \
         jq \
  && apt-get install --yes --only-upgrade \
         linux-libc-dev \
+ && gem install rdoc -v 6.3.1 \
+ && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
  && rm -rf /var/lib/dpkg/info/
 
