@@ -14,7 +14,7 @@ PATH
   remote: .
   specs:
     fluent-plugin-kubernetes-metadata-filter (2.5.3)
-      fluentd (>= 0.14.0, < 1.13)
+      fluentd (>= 0.14.0, < 1.14)
       lru_redux
       net-http-persistent (~> 4.0)
 
@@ -50,7 +50,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    fluentd (1.12.3)
+    fluentd (1.13.0)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -115,7 +115,7 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
     rugged (1.1.0)
-    serverengine (2.2.3)
+    serverengine (2.2.4)
       sigdump (~> 0.2.2)
     sigdump (0.2.4)
     simplecov (0.13.0)
