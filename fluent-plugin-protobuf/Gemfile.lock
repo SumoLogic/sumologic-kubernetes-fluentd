@@ -27,7 +27,7 @@ GEM
     http_parser.rb (0.6.0)
     msgpack (1.4.2)
     power_assert (2.0.0)
-    rake (13.0.3)
+    rake (13.0.5)
     serverengine (2.2.3)
       sigdump (~> 0.2.2)
     sigdump (0.2.4)
