@@ -9,9 +9,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     cool.io (1.7.1)
-    fluentd (1.12.3)
+    fluentd (1.13.1)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -28,7 +28,7 @@ GEM
     msgpack (1.4.2)
     power_assert (2.0.0)
     rake (13.0.5)
-    serverengine (2.2.3)
+    serverengine (2.2.4)
       sigdump (~> 0.2.2)
     sigdump (0.2.4)
     snappy (0.2.0)
