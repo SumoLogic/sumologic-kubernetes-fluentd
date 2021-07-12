@@ -1,5 +1,5 @@
 ARG FLUENTD_ARCH
-FROM ruby:2.6.6 AS builder
+FROM ruby:2.7.4 AS builder
 
 # Dependencies
 RUN apt-get update \
