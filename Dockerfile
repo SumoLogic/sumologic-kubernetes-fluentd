@@ -97,12 +97,11 @@ FROM fluent/fluentd:v1.12.2-debian${FLUENTD_ARCH}-1.1
 USER root
 
 RUN apt-get update \
+ && apt-get upgrade --yes \
  && apt-get install --yes --no-install-recommends \
         libsnappy-dev \
         curl \
         jq \
- && apt-get install --yes --only-upgrade \
-        linux-libc-dev \
  && gem install rdoc -v 6.3.1 \
  && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
