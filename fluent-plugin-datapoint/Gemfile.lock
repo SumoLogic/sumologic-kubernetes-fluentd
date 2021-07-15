@@ -2,14 +2,14 @@ PATH
   remote: .
   specs:
     fluent-plugin-datapoint (2.0.0)
-      fluentd (>= 0.14.10, < 2)
+      fluentd (= 1.12.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.1.8)
     cool.io (1.7.1)
-    fluentd (1.12.3)
+    fluentd (1.12.2)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -48,4 +48,4 @@ DEPENDENCIES
   test-unit (~> 3.0)
 
 BUNDLED WITH
-   2.1.4
+   2.2.23
