@@ -22,6 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency 'test-unit', '~> 3.4.0'
   spec.add_development_dependency "codecov", ">= 0.1.10"
-  spec.add_runtime_dependency "fluentd", [">= 0.14.10", "< 2"]
+  spec.add_runtime_dependency "fluentd", "= 1.12.2"
   spec.add_runtime_dependency 'httpclient', '~> 2.8.0'
 end

@@ -14,7 +14,7 @@ PATH
   remote: .
   specs:
     fluent-plugin-events (2.0.0)
-      fluentd (>= 0.14.10, < 2)
+      fluentd (= 1.12.2)
       net-http-persistent (~> 4.0)
 
 GEM
@@ -40,7 +40,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    fluentd (1.12.3)
+    fluentd (1.12.2)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -111,4 +111,4 @@ DEPENDENCIES
   webmock (~> 3.0)
 
 BUNDLED WITH
-   2.1.4
+   2.2.23
