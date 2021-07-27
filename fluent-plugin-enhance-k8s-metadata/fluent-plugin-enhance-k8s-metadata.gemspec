@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'concurrent-ruby', '~> 1.1'
-  spec.add_runtime_dependency "fluentd", "= 1.12.2"
+  spec.add_runtime_dependency "fluentd", "= 1.13.3"
   # spec.add_runtime_dependency 'kubeclient', '4.9.1' # Git version of Kubeclient specified in Gemfile
   spec.add_runtime_dependency 'lru_redux', '~> 1.1.0'
   spec.add_runtime_dependency 'net-http-persistent', '~> 4.0'
