@@ -90,11 +90,20 @@ jobs:
       - name: Test fluent-plugin-protobuf
         run: make test-fluent-plugin-protobuf
 
-  image-test:
+  image-test-debian:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2.3.4
-      - name: Build kubernetes-fluentd
+      - name: Build Debian image
         run: make build
-      - name: Test kubernetes-fluentd image
+      - name: Test Debian image
         run: make image-test
+
+  image-test-alpine:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: Build Alpine image
+        run: make build-alpine
+      - name: Test Alpine image
+        run: make image-test-alpine

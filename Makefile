@@ -1,4 +1,5 @@
 BUILD_TAG ?= latest
+BUILD_TAG_ALPINE ?= latest-alpine
 BUILD_CACHE_TAG = latest-builder-cache
 IMAGE_NAME = kubernetes-fluentd
 ECR_URL = public.ecr.aws/u5z5f8z6
@@ -22,6 +23,13 @@ build:
 		--tag $(IMAGE_NAME):$(BUILD_TAG) \
 		.
 
+build-alpine:
+	docker build \
+		--build-arg BUILD_TAG=$(BUILD_TAG_ALPINE) \
+		--tag $(IMAGE_NAME):$(BUILD_TAG_ALPINE) \
+		--file alpine.Dockerfile \
+		.
+
 push:
 	docker tag $(IMAGE_NAME):$(BUILD_CACHE_TAG) $(REPO_URL):$(BUILD_CACHE_TAG)
 	docker push $(REPO_URL):$(BUILD_CACHE_TAG)
@@ -35,6 +43,15 @@ login:
 build-push-multiplatform:
 	REPO_URL=$(REPO_URL) BUILD_TAG=$(BUILD_TAG) ./ci/build-push-multiplatform.sh
 
+build-push-multiplatform-alpine:
+	docker buildx build \
+		--push \
+		--platform linux/amd64,linux/arm/v7,linux/arm64 \
+		--build-arg BUILD_TAG=$(BUILD_TAG)-alpine \
+		--tag $(REPO_URL):$(BUILD_TAG)-alpine \
+		--file alpine.Dockerfile \
+		.
+
 login-opensource:
 	aws ecr-public get-login-password --region us-east-1 \
 	| docker login --username AWS --password-stdin $(OPENSOURCE_ECR_URL)
@@ -42,9 +59,23 @@ login-opensource:
 build-push-multiplatform-opensource:
 	REPO_URL=$(OPENSOURCE_REPO_URL) BUILD_TAG=$(BUILD_TAG) ./ci/build-push-multiplatform.sh
 
+
+build-push-multiplatform-alpine-opensource:
+	docker buildx build \
+		--push \
+		--platform linux/amd64,linux/arm/v7,linux/arm64 \
+		--build-arg BUILD_TAG=$(BUILD_TAG)-alpine \
+		--tag $(OPENSOURCE_REPO_URL):$(BUILD_TAG)-alpine \
+		--file alpine.Dockerfile \
+		.
+
 .PHONY: image-test
 image-test:
 	ruby test/test_docker.rb
+
+.PHONY: image-test-alpine
+image-test-alpine:
+	IMAGE_NAME=$(IMAGE_NAME):$(BUILD_TAG_ALPINE) ruby test/test_docker.rb
 
 .PHONY: test
 test: test-fluent-plugin-datapoint test-fluent-plugin-enhance-k8s-metadata test-fluent-plugin-events test-fluent-plugin-kubernetes-metadata-filter test-fluent-plugin-kubernetes-sumologic test-fluent-plugin-prometheus-format test-fluent-plugin-protobuf
