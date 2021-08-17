@@ -1,18 +1,15 @@
-ARG FLUENTD_ARCH
-FROM ruby:2.6.8-buster AS builder
+FROM ruby:2.6.8-alpine3.14 AS builder
 
-# Dependencies
-RUN apt-get update \
- && apt-get install --yes --no-install-recommends \
-        curl \
-        g++ \
-        gcc \
-        libc-dev \
-        libsnappy-dev \
-        make \
+RUN apk update \
+ && apk add \
+        build-base \
+        git \
+        gnupg \
+        linux-headers \
         ruby-dev \
-        sudo \
-        unzip
+        snappy-dev
+
+RUN echo 'gem: --no-document' >> /etc/gemrc
 
 # Fluentd plugin dependencies
 RUN gem install \
@@ -89,28 +86,37 @@ RUN gem install \
         --local fluent-plugin-prometheus-format \
         --local fluent-plugin-protobuf
 
-RUN rm -rf /usr/local/bundle/cache/* \
- && find /usr/local/bundle/ -name "*.o" | xargs rm
+FROM ruby:2.6.8-alpine3.14
 
-FROM fluent/fluentd:v1.12.2-debian${FLUENTD_ARCH}-1.1
+RUN apk update \
+ && apk add --no-cache \
+        ca-certificates \
+        snappy-dev \
+        tini
 
-USER root
+RUN delgroup ping \
+    && addgroup -S -g 999 fluent \
+    && adduser -S -g fluent -u 999 fluent \
+    # for log storage (maybe shared with host)
+    && mkdir -p /fluentd/log \
+    # configuration/plugins path (default: copied from .)
+    && mkdir -p /fluentd/etc /fluentd/plugins \
+    && chown -R fluent /fluentd && chgrp -R fluent /fluentd
 
-RUN apt-get update \
- && apt-get upgrade --yes \
- && apt-get install --yes --no-install-recommends \
-        libsnappy-dev \
-        curl \
-        jq \
- && gem install rdoc -v 6.3.1 \
- && gem cleanup \
- && rm -rf /var/lib/apt/lists/ \
- && rm -rf /var/lib/dpkg/info/
+COPY fluent.conf /fluentd/etc/
+COPY entrypoint.sh /bin/
+
+ENV FLUENTD_CONF="fluent.conf"
+
+ENV LD_PRELOAD=""
+EXPOSE 24224 5140
 
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
-COPY ./entrypoint.sh /bin/
 
 USER 999:999
 
 ARG BUILD_TAG=latest
 ENV TAG $BUILD_TAG
+
+ENTRYPOINT ["tini",  "--", "/bin/entrypoint.sh"]
+CMD ["fluentd"]
