@@ -13,11 +13,16 @@ RUN echo 'gem: --no-document' >> /etc/gemrc
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.12.2 \
+        async-http:0.54.0 \
+        bigdecimal:1.4.4 \
         concurrent-ruby:1.1.8 \
+        ext_monitor:0.1.2 \
+        fluentd:1.12.2 \
         google-protobuf:3.17.3 \
+        json:2.4.1 \
         lru_redux:1.1.0 \
         net-http-persistent:4.0.1 \
+        oj:3.10.18 \
         snappy:0.0.17 \
         specific_install:0.3.5
 
