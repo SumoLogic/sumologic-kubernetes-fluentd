@@ -17,37 +17,50 @@ updates:
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-datapoint"
+    ignore:
+      - dependency-name: "fluentd"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-enhance-k8s-metadata"
+    ignore:
+      - dependency-name: "fluentd"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-events"
+    ignore:
+      - dependency-name: "fluentd"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-kubernetes-metadata-filter"
+    ignore:
+      - dependency-name: "fluentd"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-kubernetes-sumologic"
+    ignore:
+      - dependency-name: "fluentd"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-prometheus-format"
+    ignore:
+      - dependency-name: "fluentd"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "bundler"
     directory: "/fluent-plugin-protobuf"
     ignore:
+      - dependency-name: "fluentd"
       - dependency-name: "google-protobuf"
     schedule:
       interval: "daily"
