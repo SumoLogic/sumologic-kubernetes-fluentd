@@ -18,19 +18,6 @@ module Fluent::Plugin
     config_param :exclude_pod_regex, :string, :default => ""
     config_param :exclude_priority_regex, :string, :default => ""
     config_param :exclude_unit_regex, :string, :default => ""
-    config_param :tracing_format, :bool, :default => false
-    config_param :tracing_namespace, :string, :default => 'namespace'
-    config_param :tracing_pod, :string, :default => 'pod'
-    config_param :tracing_pod_id, :string, :default => 'pod_id'
-    config_param :tracing_container_name, :string, :default => 'container_name'
-    config_param :tracing_host, :string, :default => 'hostname'
-    config_param :tracing_label_prefix, :string, :default => 'pod_label_'
-    config_param :tracing_annotation_prefix, :string, :default => 'pod_annotation_'
-    config_param :source_host_key_name, :string, :default => '_sourceHost'
-    config_param :source_category_key_name, :string, :default => '_sourceCategory'
-    config_param :source_name_key_name, :string, :default => '_sourceName'
-    config_param :collector_key_name, :string, :default => '_collector'
-    config_param :collector_value, :string, :default => 'undefined'
     config_param :per_container_annotations_enabled, :bool, :default => false
     config_param :per_container_annotation_prefixes, :array, :default => ["sumologic.com/"]
 
@@ -64,37 +51,12 @@ module Fluent::Plugin
     end
 
     def get_kubernetes(record)
-      if not @tracing_format
-        if record.key?("kubernetes") and not record.fetch("kubernetes").nil?
-          # Clone kubernetes hash so we don't override the cache
-          # Note (sam 10/9/19): this is a shallow copy; nested hashes can still be overriden
-          return record["kubernetes"].clone
-        end
-        return nil
-      else
-        return_value = {
-          'namespace_name' => record['tags'][@tracing_namespace],
-          'pod_name' => record['tags'][@tracing_pod],
-          'pod_id' => record['tags'][@tracing_pod_id],
-          'container_name' => record['tags'][@tracing_container_name],
-          'host' => record['tags'][@tracing_host],
-          'labels' => {},
-          'annotations' => {}
-        }
-
-        label_length = @tracing_label_prefix.length
-        annotation_length = @tracing_annotation_prefix.length
-
-        record['tags'].select { |key, value|
-          if key.match(/^#{@tracing_label_prefix}./)
-            return_value['labels'][key[label_length..-1]] = value
-          elsif key.match(/^#{@tracing_annotation_prefix}./)
-            return_value['annotations'][key[annotation_length..-1]] = value
-          end
-        }
-
-        return return_value
+      if record.key?("kubernetes") and not record.fetch("kubernetes").nil?
+        # Clone kubernetes hash so we don't override the cache
+        # Note (sam 10/9/19): this is a shallow copy; nested hashes can still be overriden
+        return record["kubernetes"].clone
       end
+      return nil
     end
 
     def filter(tag, time, record)
@@ -112,9 +74,7 @@ module Fluent::Plugin
       # Set the sumo metadata fields
       sumo_metadata = record["_sumo_metadata"] || {}
 
-      if not @tracing_format
-        record["_sumo_metadata"] = sumo_metadata
-      end
+      record["_sumo_metadata"] = sumo_metadata
 
       sumo_metadata[:log_format] = @log_format
       sumo_metadata[:host] = @source_host if @source_host
@@ -204,16 +164,6 @@ module Fluent::Plugin
         # Strip sumologic.com annotations
         # Note (sam 10/9/19): we're stripping from the copy, so this has no effect on output
         kubernetes.delete("annotations") if annotations
-
-        if @tracing_format
-          # Move data to record in tracing format
-          record['tags'][@source_host_key_name] = sumo_metadata[:host]
-          record['tags'][@source_name_key_name] = sumo_metadata[:source]
-          record['tags'][@source_category_key_name] = sumo_metadata[:category]
-          record['tags']['_source'] = 'traces'
-          record['tags'][@collector_key_name] = @collector_value
-          return record
-        end
 
         if record.key?("docker") and not record.fetch("docker").nil?
           record["docker"].each {|k, v| log_fields[k] = v}
