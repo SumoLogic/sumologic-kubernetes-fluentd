@@ -40,7 +40,7 @@ RUN gem install \
         fluent-plugin-prometheus:1.6.1 \
         fluent-plugin-record-modifier:2.0.1 \
         fluent-plugin-rewrite-tag-filter:2.2.0 \
-        fluent-plugin-sumologic_output:1.7.1 \
+        fluent-plugin-sumologic_output:1.7.3 \
         fluent-plugin-systemd:1.0.2
 
 WORKDIR /sumologic-kubernetes-fluentd
