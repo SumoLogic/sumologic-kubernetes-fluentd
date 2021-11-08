@@ -1,0 +1,11 @@
+{
+	"datapoints": [
+	    {
+		"emptykey1": "",
+		"nullkey2": null,
+		"@metric": "some_metric",
+		"@timestamp": 1550862304339,
+		"@value": 1619905.0
+	    }
+	]
+    }

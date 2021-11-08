@@ -1,0 +1,7 @@
+{
+    "outputs": [
+        {
+            "message": "some_metric{emptykey1=\"\",_origin=\"kubernetes\"} 1619905.0 1550862304339"
+        }
+    ]
+}
