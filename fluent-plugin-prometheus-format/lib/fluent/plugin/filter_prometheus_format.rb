@@ -119,7 +119,7 @@ module Fluent
         array = @sort_labels ? hash.sort : hash.to_a
         array.map do |key, value|
           "#{key}=\"#{escape(value)}\""\
-            unless [KEY_METRIC, KEY_TIMESTAMP, KEY_VALUE].include?(key)
+            unless value.nil? || [KEY_METRIC, KEY_TIMESTAMP, KEY_VALUE].include?(key)
         end.compact.join(',')
       end
 

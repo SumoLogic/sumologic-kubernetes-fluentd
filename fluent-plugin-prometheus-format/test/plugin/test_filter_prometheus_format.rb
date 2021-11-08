@@ -14,6 +14,13 @@ class PrometheusFormatFilterTest < Test::Unit::TestCase
       verify_with_expected outputs, 'output.datapoint'
     end
 
+    test 'transform empty keys' do
+      config = %([])
+      outputs = filter_datapoints(config, 'datapoint.empty')
+      assert_equal 1, outputs.length
+      verify_with_expected outputs, 'output.datapoint.empty'
+    end
+
     test 'relabel keys' do
       config = %([
         relabel {

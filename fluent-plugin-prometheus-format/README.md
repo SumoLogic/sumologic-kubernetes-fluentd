@@ -2,8 +2,13 @@
 
 [Fluentd](https://fluentd.org/) filter plugin to transform data points to prometheus format.
 
-- All fields of the metric will be serialized as intrinsic tags (dimensions) in the prometheus format.
-- Sample of Input
+All fields of the metric will be serialized as intrinsic tags (dimensions) in the prometheus format.
+
+Fields with empty string as value as passed without change. Fields with `null` as value are dropped.
+
+## Example
+
+Given the following Fluentd event as input:
 
 ```json
 {
@@ -29,7 +34,7 @@
 }
 ```
 
-- Sample of Output
+the following Fluentd event goes out:
 
 ```json
 {
