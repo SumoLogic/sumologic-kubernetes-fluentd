@@ -39,3 +39,5 @@ bundle
 ## Configuration
 
 TBD
+
+- `watch` - set up a watch on endpoints on the Kubernetes API server for updates to pod metadata (default: `true`)

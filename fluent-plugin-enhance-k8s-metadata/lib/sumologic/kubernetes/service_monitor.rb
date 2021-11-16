@@ -6,7 +6,12 @@ module SumoLogic
     module ServiceMonitor
       require_relative 'connector.rb'
 
-      def start_service_monitor
+      def start_service_monitor(is_watch_enabled)
+        if !is_watch_enabled
+          log.info "Watch is disabled - not watching for service changes."
+          return
+        end
+
         log.info "Starting watching for service changes"
         @watch_service_interval_seconds = 300
         thread_create(:"watch_endpoints") {

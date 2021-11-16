@@ -24,6 +24,7 @@ module Fluent
 
       # parameters for connecting to k8s api server
       config_param :kubernetes_url, :string, default: nil
+      config_param :watch, :bool, default: true
       config_param :client_cert, :string, default: nil
       config_param :client_key, :string, default: nil
       config_param :ca_file, :string, default: nil
@@ -58,7 +59,7 @@ module Fluent
 
       def start
         super
-        start_service_monitor
+        start_service_monitor(@watch)
       end
 
       def filter(tag, time, record)
