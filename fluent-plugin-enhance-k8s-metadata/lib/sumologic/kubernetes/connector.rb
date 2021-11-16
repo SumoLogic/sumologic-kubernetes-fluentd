@@ -51,7 +51,9 @@ module SumoLogic
                 read: 5
               }
             )
-            client.faraday_client.adapter(:net_http_persistent)
+            if @keepalive
+              client.faraday_client.adapter(:net_http_persistent)
+            end
             client.api_valid?
           end
           client

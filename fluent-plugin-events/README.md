@@ -30,6 +30,7 @@ configmap_update_interval_seconds | 10 | Resource version is used to resume even
 watch_interval_seconds | 300 | Interval at which the watch thread gets recreated.
 deploy_namespace | "sumologic" | Namespace that the events plugin resources will be created in. 
 kubernetes_url | nil | URL of the Kubernetes API.
+keepalive | true | Defines whether HTTP connections to Kubernetes API server should be persistent
 client_cert | nil | Path to the certificate file for the client.
 client_key | nil | Path to the private key file for the client.
 ca_file | nil | Path to the CA file.
