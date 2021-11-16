@@ -39,3 +39,5 @@ bundle
 ## Configuration
 
 TBD
+
+- `keepalive` - defines whether HTTP connections to Kubernetes API server should be persistent (default: `true`)

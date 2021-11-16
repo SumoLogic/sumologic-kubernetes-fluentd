@@ -42,6 +42,7 @@ module Fluent::Plugin
     config_param :cache_size, :integer, default: 1000
     config_param :cache_ttl, :integer, default: 60 * 60
     config_param :watch, :bool, default: true
+    config_param :keepalive, :bool, default: true
     config_param :apiVersion, :string, default: 'v1'
     config_param :client_cert, :string, default: nil
     config_param :client_key, :string, default: nil
@@ -240,7 +241,9 @@ module Fluent::Plugin
           auth_options: auth_options,
           as: :parsed_symbolized
         )
-        @client.faraday_client.adapter(:net_http_persistent)
+        if @keepalive
+          @client.faraday_client.adapter(:net_http_persistent)
+        end
 
         begin
           @client.api_valid?
