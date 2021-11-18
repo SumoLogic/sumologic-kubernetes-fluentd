@@ -1,5 +1,5 @@
 {
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "ReplicaSet",
     "metadata": {
         "annotations": {
@@ -17,7 +17,7 @@
         "namespace": "kube-system",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "Deployment",
@@ -26,7 +26,7 @@
             }
         ],
         "resourceVersion": "854",
-        "selfLink": "/apis/extensions/v1beta1/namespaces/kube-system/replicasets/kube-dns-5fbcb4d67b",
+        "selfLink": "/apis/apps/v1/namespaces/kube-system/replicasets/kube-dns-5fbcb4d67b",
         "uid": "d00e6062-7040-11e9-90f1-02324f7e0d1e"
     },
     "spec": {
