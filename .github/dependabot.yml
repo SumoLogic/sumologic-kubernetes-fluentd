@@ -9,9 +9,9 @@ updates:
     directory: "/"
     ignore:
       - dependency-name: "ruby"
-        versions:
-          - "2.7.x"
-          - "3.x"
+        update-types:
+          - "version-update:semver:major"
+          - "version-update:semver:minor"
     schedule:
       interval: "daily"
 
