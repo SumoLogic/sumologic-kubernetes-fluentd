@@ -51,4 +51,14 @@ class CacheStrategyTest < Test::Unit::TestCase
     assert_not_nil metadata
     assert_equal 0, metadata.size
   end
+  
+  test 'refreshing cache entry deletes it if no metadata' do
+    stub_request(:get, %r{/api/v1/namespaces/namespace/pods/non_existent})
+        .to_raise(Kubeclient::ResourceNotFoundError.new(404, nil, nil))
+    key = 'namespace::non_existent'
+    @cache[key] = {}
+    refresh_cache_entry(key)
+    assert_false @cache.key?(key)
+  end
+
 end

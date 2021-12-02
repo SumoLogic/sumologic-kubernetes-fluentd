@@ -18,6 +18,33 @@ module SumoLogic
         end
         metadata
       end
+
+      def refresh_cache
+        # Refresh the cache by re-fetching all the pod metadata.
+        entries = @cache.to_a
+        log.info "Refreshing metadata for #{entries.count} entries"
+
+        entries.each { |key, _|
+          begin
+            refresh_cache_entry(key)
+          rescue => e
+            log.error "Cannot refresh metadata for key #{key}: #{e}"
+          end
+        }
+      end
+
+      def refresh_cache_entry(cache_key)
+        log.debug "Refreshing metadata for key #{cache_key}"
+        namespace_name, pod_name = cache_key.split("::")
+        metadata = fetch_pod_metadata(namespace_name, pod_name)
+        if metadata.empty?
+            # if the pod doesn't exist anymore, remove its key from the cache
+            @cache.delete(cache_key)
+        else
+            @cache[cache_key] = metadata
+        end
+      end
+
     end
   end
 end
