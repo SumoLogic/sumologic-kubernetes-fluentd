@@ -137,21 +137,7 @@ module Fluent
         cache_refresh_with_variation = apply_variation(@cache_refresh, @cache_refresh_variation)
         log.info "Will refresh cache every #{format_time(cache_refresh_with_variation)}"
         timer_execute(:"cache_refresher", cache_refresh_with_variation) {
-          entries = @cache.to_a
-          log.info "Refreshing metadata for #{entries.count} entries"
-
-          entries.each { |entry|
-            begin
-              log.debug "Refreshing metadata for key #{entry[0]}"
-              split = entry[0].split("::")
-              namespace_name = split[0]
-              pod_name = split[1]
-              metadata = fetch_pod_metadata(namespace_name, pod_name)
-              @cache[entry[0]] = metadata unless metadata.empty?
-            rescue => e
-              log.error "Cannot refresh metadata for entry #{entry}: #{e}"
-            end
-          }
+            refresh_cache
         }
       end
 
