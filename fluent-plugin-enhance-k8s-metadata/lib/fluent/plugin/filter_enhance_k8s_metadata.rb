@@ -21,6 +21,7 @@ module Fluent
       config_param :in_namespace_path, :array, default: ['$.namespace']
       config_param :in_pod_path, :array, default: ['$.pod', '$.pod_name']
       config_param :data_type, :string, default: 'metrics'
+      config_param :add_service, :bool, default: true
 
       # parameters for connecting to k8s api server
       config_param :kubernetes_url, :string, default: nil
@@ -59,7 +60,11 @@ module Fluent
 
       def start
         super
-        start_service_monitor
+        if @add_service
+          start_service_monitor
+        else
+          log.info "Service metadata enrichment is disabled."
+        end
       end
 
       def filter(tag, time, record)
