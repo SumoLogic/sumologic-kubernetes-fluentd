@@ -40,4 +40,5 @@ bundle
 
 TBD
 
+- `add_service` - set it to `false` to disable decorating records with the `service` metadata (default: `true`)
 - `keepalive` - defines whether HTTP connections to Kubernetes API server should be persistent (default: `true`)
