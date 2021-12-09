@@ -69,4 +69,5 @@ def init_globals
   @cache_ttl = 60 * 60
   @core_api_versions = ['v1']
   @api_groups = ['apps/v1']
+  @add_owners = true
 end

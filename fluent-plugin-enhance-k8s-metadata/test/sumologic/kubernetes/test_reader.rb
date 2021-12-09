@@ -45,6 +45,13 @@ class ReaderTest < Test::Unit::TestCase
     assert_equal 'kube-dns', metadata['owners']['deployment']
   end
 
+  test 'fetch_pod_metadata returns no owners if add_owners is disabled' do
+    @add_owners = false
+    metadata = fetch_pod_metadata('kube-system', 'somepod')
+    assert_not_nil metadata
+    assert_nil metadata['owners']
+  end
+
   test 'fetch_pod_metadata returns empty map if resource not found' do
     metadata = fetch_pod_metadata('non-exist', 'somepod')
     assert_not_nil metadata

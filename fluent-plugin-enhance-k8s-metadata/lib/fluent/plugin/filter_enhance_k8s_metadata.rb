@@ -21,6 +21,7 @@ module Fluent
       config_param :in_namespace_path, :array, default: ['$.namespace']
       config_param :in_pod_path, :array, default: ['$.pod', '$.pod_name']
       config_param :data_type, :string, default: 'metrics'
+      config_param :add_owners, :bool, default: true
       config_param :add_service, :bool, default: true
 
       # parameters for connecting to k8s api server
@@ -96,7 +97,10 @@ module Fluent
             record['node'] = metadata['node']
           end
 
-          ['pod_labels', 'owners', 'service'].each do |metadata_type|
+          metadata_types = ['pod_labels', 'service']
+          metadata_types.push 'owners' if @add_owners
+
+          metadata_types.each do |metadata_type|
             attachment = metadata[metadata_type]
             if attachment.nil? || attachment.empty?
               log.trace "Cannot get #{metadata_type} for pod #{namespace_name}::#{pod_name}, skip."
