@@ -40,5 +40,7 @@ bundle
 
 TBD
 
+- `add_owners` - set it to `false` to disable decorating records with pod owner metadata
+  like `daemonset`, `deployment`, `replicaset`, `statefulset` (default: `true`)
 - `add_service` - set it to `false` to disable decorating records with the `service` metadata (default: `true`)
 - `keepalive` - defines whether HTTP connections to Kubernetes API server should be persistent (default: `true`)

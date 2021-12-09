@@ -27,8 +27,10 @@ module SumoLogic
         node = pod['spec']['nodeName']
         metadata['node'] = node
 
-        owners = fetch_pod_owners(namespace, pod)
-        metadata['owners'] = owners if owners.is_a?(Hash)
+        if @add_owners
+          owners = fetch_pod_owners(namespace, pod)
+          metadata['owners'] = owners if owners.is_a?(Hash)
+        end
         metadata
       end
 
