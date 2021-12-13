@@ -27,6 +27,10 @@ module SumoLogic
         entries.each { |key, _|
           begin
             refresh_cache_entry(key)
+            # Adding friction to avoid aggressive refresh.
+            if !@cache_refresh_apiserver_request_delay.nan? && !@cache_refresh_apiserver_request_delay.negative?
+              sleep @cache_refresh_apiserver_request_delay
+            end
           rescue => e
             log.error "Cannot refresh metadata for key #{key}: #{e}"
           end

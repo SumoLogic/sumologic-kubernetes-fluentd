@@ -47,6 +47,7 @@ module Fluent
       config_param :cache_ttl, :integer, default: 60 * 60 * 2
       config_param :cache_refresh, :integer, default: 60 * 60
       config_param :cache_refresh_variation, :integer, default: 60 * 15
+      config_param :cache_refresh_apiserver_request_delay, :float, default: Float::NAN
 
       def configure(conf)
         super
