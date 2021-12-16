@@ -29,7 +29,7 @@ GEM
       sigdump (~> 0.2.2)
     sigdump (0.2.4)
     strptime (0.2.5)
-    test-unit (3.5.1)
+    test-unit (3.5.2)
       power_assert
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
