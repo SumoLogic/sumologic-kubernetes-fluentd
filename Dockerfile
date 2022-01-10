@@ -1,5 +1,5 @@
 ARG FLUENTD_ARCH
-FROM ruby:2.6.8-buster AS builder
+FROM ruby:2.6.9-buster AS builder
 
 # Dependencies
 RUN apt-get update \
@@ -13,6 +13,13 @@ RUN apt-get update \
         ruby-dev \
         sudo \
         unzip
+
+# Update Ruby gems to prevent vulnerabilities
+RUN gem install \
+        bundler:2.3.4 \
+        date:2.0.1 \
+        rdoc:6.4.0 \
+        rexml:3.2.5
 
 # Fluentd plugin dependencies
 RUN gem install \
@@ -102,7 +109,6 @@ RUN apt-get update \
         libsnappy-dev \
         curl \
         jq \
- && gem install rdoc -v 6.3.1 \
  && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
  && rm -rf /var/lib/dpkg/info/

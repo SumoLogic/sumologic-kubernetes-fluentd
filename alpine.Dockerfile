@@ -1,4 +1,4 @@
-FROM ruby:2.6.8-alpine3.14 AS builder
+FROM ruby:2.7.5-alpine3.14 AS builder
 
 RUN apk update \
  && apk add \
@@ -10,6 +10,13 @@ RUN apk update \
         snappy-dev
 
 RUN echo 'gem: --no-document' >> /etc/gemrc
+
+# Update Ruby gems to prevent vulnerabilities
+RUN gem install \
+        bundler:2.3.4 \
+        cgi:0.3.1 \
+        rdoc:6.4.0 \
+        rexml:3.2.5
 
 # Fluentd plugin dependencies
 RUN gem install \
@@ -91,7 +98,7 @@ RUN gem install \
         --local fluent-plugin-prometheus-format \
         --local fluent-plugin-protobuf
 
-FROM ruby:2.6.8-alpine3.14
+FROM ruby:2.7.5-alpine3.14
 
 RUN apk update \
  && apk add --no-cache \
