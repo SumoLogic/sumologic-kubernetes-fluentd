@@ -23,7 +23,7 @@ RUN gem install \
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.12.2 \
+        fluentd:1.14.4 \
         concurrent-ruby:1.1.8 \
         google-protobuf:3.17.3 \
         lru_redux:1.1.0 \
@@ -99,7 +99,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.12.2-debian${FLUENTD_ARCH}-1.1
+FROM fluent/fluentd:v1.14.4-debian${FLUENTD_ARCH}-1.0
 
 USER root
 

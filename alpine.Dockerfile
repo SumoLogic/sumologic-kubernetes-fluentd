@@ -24,7 +24,7 @@ RUN gem install \
         bigdecimal:1.4.4 \
         concurrent-ruby:1.1.8 \
         ext_monitor:0.1.2 \
-        fluentd:1.12.2 \
+        fluentd:1.14.4 \
         google-protobuf:3.17.3 \
         json:2.4.1 \
         lru_redux:1.1.0 \
