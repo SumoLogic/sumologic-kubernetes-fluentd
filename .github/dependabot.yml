@@ -61,6 +61,5 @@ updates:
     directory: "/fluent-plugin-protobuf"
     ignore:
       - dependency-name: "fluentd"
-      - dependency-name: "google-protobuf"
     schedule:
       interval: "daily"
