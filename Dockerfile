@@ -25,7 +25,7 @@ RUN gem install \
 RUN gem install \
         fluentd:1.14.4 \
         concurrent-ruby:1.1.8 \
-        google-protobuf:3.17.3 \
+        google-protobuf:3.19.2 \
         lru_redux:1.1.0 \
         net-http-persistent:4.0.1 \
         snappy:0.0.17 \
