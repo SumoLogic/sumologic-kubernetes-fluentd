@@ -10,8 +10,8 @@ updates:
     ignore:
       - dependency-name: "ruby"
         update-types:
-          - "version-update:semver:major"
-          - "version-update:semver:minor"
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
     schedule:
       interval: "daily"
 
