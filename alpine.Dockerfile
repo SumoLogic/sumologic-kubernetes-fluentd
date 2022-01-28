@@ -100,11 +100,25 @@ RUN gem install \
 
 FROM ruby:2.7.5-alpine3.14
 
+# 1. Update system packages.
+# 2. Install required system packages.
+# 3. Delete vulnerable versions of Ruby gems to silence security scanners.
 RUN apk update \
  && apk add --no-cache \
         ca-certificates \
         snappy-dev \
-        tini
+        tini \
+ && rm -rf /usr/local/lib/ruby/2.7.0/bundler/ \
+ && rm /usr/local/lib/ruby/2.7.0/bundler.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/bundler-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/cgi/ \
+ && rm /usr/local/lib/ruby/2.7.0/cgi.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/cgi-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/rdoc/ \
+ && rm /usr/local/lib/ruby/2.7.0/rdoc.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rdoc-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/rexml/ \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rexml-*.gemspec
 
 RUN delgroup ping \
     && addgroup -S -g 999 fluent \
