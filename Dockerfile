@@ -1,5 +1,5 @@
 ARG FLUENTD_ARCH
-FROM ruby:2.6.9-buster AS builder
+FROM ruby:2.7.5-buster AS builder
 
 # Dependencies
 RUN apt-get update \
@@ -116,17 +116,17 @@ RUN apt-get update \
  && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
  && rm -rf /var/lib/dpkg/info/ \
- && rm -rf /usr/local/lib/ruby/2.6.0/bundler/ \
- && rm /usr/local/lib/ruby/2.6.0/bundler.rb \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/bundler-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.6.0/json/ \
- && rm /usr/local/lib/ruby/2.6.0/json.rb \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/json-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.6.0/rdoc/ \
- && rm /usr/local/lib/ruby/2.6.0/rdoc.rb \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/rdoc-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.6.0/rexml/ \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/rexml-*.gemspec
+ && rm -rf /usr/local/lib/ruby/2.7.0/bundler/ \
+ && rm /usr/local/lib/ruby/2.7.0/bundler.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/bundler-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/json/ \
+ && rm /usr/local/lib/ruby/2.7.0/json.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/json-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/rdoc/ \
+ && rm /usr/local/lib/ruby/2.7.0/rdoc.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rdoc-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/rexml/ \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rexml-*.gemspec
 
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 COPY ./entrypoint.sh /bin/
