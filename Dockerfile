@@ -99,7 +99,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.14.4-debian${FLUENTD_ARCH}-1.0
+FROM fluent/fluentd:v1.14.5-debian${FLUENTD_ARCH}-1.0
 
 USER root
 
