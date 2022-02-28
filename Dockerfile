@@ -105,14 +105,16 @@ USER root
 
 # 1. Update system packages.
 # 2. Install required system packages.
-# 3. Clean up after system package installation.
-# 4. Delete vulnerable versions of Ruby gems to silence security scanners.
+# 3. Update vulnerable gem, cgi
+# 4. Clean up after system package installation.
+# 5. Delete vulnerable versions of Ruby gems to silence security scanners.
 RUN apt-get update \
  && apt-get upgrade --yes \
  && apt-get install --yes --no-install-recommends \
         libsnappy-dev \
         curl \
         jq \
+ && gem update cgi \
  && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
  && rm -rf /var/lib/dpkg/info/ \
