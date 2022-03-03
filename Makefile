@@ -4,6 +4,9 @@ BUILD_CACHE_TAG = latest-builder-cache
 IMAGE_NAME = kubernetes-fluentd
 ECR_URL = public.ecr.aws/sumologic
 REPO_URL = $(ECR_URL)/$(IMAGE_NAME)
+PLUGINS = $(wildcard fluent-plugin*)
+BUILD_PLUGINS = $(patsubst fluent-plugin%, build-fluent-plugin%, $(PLUGINS))
+TEST_PLUGINS = $(patsubst fluent-plugin%, test-fluent-plugin%, $(PLUGINS))
 
 build:
 	DOCKER_BUILDKIT=1 docker build \
@@ -59,32 +62,20 @@ image-test-alpine:
 	IMAGE_NAME=$(IMAGE_NAME):$(BUILD_TAG_ALPINE) ruby test/test_docker.rb
 
 .PHONY: test
-test: test-fluent-plugin-datapoint test-fluent-plugin-enhance-k8s-metadata test-fluent-plugin-events test-fluent-plugin-kubernetes-metadata-filter test-fluent-plugin-kubernetes-sumologic test-fluent-plugin-prometheus-format test-fluent-plugin-protobuf
+test: ${TEST_PLUGINS}
 
-.PHONY: test-fluent-plugin-datapoint
-test-fluent-plugin-datapoint:
-	( cd fluent-plugin-datapoint && bundle install && bundle exec rake )
+.PHONY: _test-%
+_test-%:
+	( cd $* && bundle install && bundle exec rake )
 
-.PHONY: test-fluent-plugin-enhance-k8s-metadata
-test-fluent-plugin-enhance-k8s-metadata:
-	( cd fluent-plugin-enhance-k8s-metadata && bundle install && bundle exec rake )
+${TEST_PLUGINS}: test-%: _test-%
 
-.PHONY: test-fluent-plugin-events
-test-fluent-plugin-events:
-	( cd fluent-plugin-events && bundle install && bundle exec rake )
+# build all plugins in order to regenerate Gemfile.lock
+.PHONY: build-plugins
+build-plugins: ${BUILD_PLUGINS}
 
-.PHONY: test-fluent-plugin-kubernetes-metadata-filter
-test-fluent-plugin-kubernetes-metadata-filter:
-	( cd fluent-plugin-kubernetes-metadata-filter && bundle install && bundle exec rake )
+.PHONY: _build-%
+_build-%:
+	( cd $* && bundle install --no-deployment )
 
-.PHONY: test-fluent-plugin-kubernetes-sumologic
-test-fluent-plugin-kubernetes-sumologic:
-	( cd fluent-plugin-kubernetes-sumologic && bundle install && bundle exec rake )
-
-.PHONY: test-fluent-plugin-prometheus-format
-test-fluent-plugin-prometheus-format:
-	( cd fluent-plugin-prometheus-format && bundle install && bundle exec rake )
-
-.PHONY: test-fluent-plugin-protobuf
-test-fluent-plugin-protobuf:
-	( cd fluent-plugin-protobuf && bundle install && bundle exec rake )
+${BUILD_PLUGINS}: build-%: _build-%
