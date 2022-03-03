@@ -88,3 +88,35 @@ test-fluent-plugin-prometheus-format:
 .PHONY: test-fluent-plugin-protobuf
 test-fluent-plugin-protobuf:
 	( cd fluent-plugin-protobuf && bundle install && bundle exec rake )
+
+# build all plugins in order to regenerate Gemfile.lock
+.PHONY: build-plugins
+build-plugins: build-fluent-plugin-datapoint build-fluent-plugin-enhance-k8s-metadata build-fluent-plugin-events build-fluent-plugin-kubernetes-metadata-filter build-fluent-plugin-kubernetes-sumologic build-fluent-plugin-prometheus-format test-fluent-plugin-protobuf
+
+.PHONY: build-fluent-plugin-datapoint
+build-fluent-plugin-datapoint:
+	( cd fluent-plugin-datapoint && bundle install --no-deployment )
+
+.PHONY: build-fluent-plugin-enhance-k8s-metadata
+build-fluent-plugin-enhance-k8s-metadata:
+	( cd fluent-plugin-enhance-k8s-metadata && bundle install --no-deployment )
+
+.PHONY: build-fluent-plugin-events
+build-fluent-plugin-events:
+	( cd fluent-plugin-events && bundle install --no-deployment )
+
+.PHONY: build-fluent-plugin-kubernetes-metadata-filter
+build-fluent-plugin-kubernetes-metadata-filter:
+	( cd fluent-plugin-kubernetes-metadata-filter && bundle install --no-deployment )
+
+.PHONY: build-fluent-plugin-kubernetes-sumologic
+build-fluent-plugin-kubernetes-sumologic:
+	( cd fluent-plugin-kubernetes-sumologic && bundle install --no-deployment )
+
+.PHONY: build-fluent-plugin-prometheus-format
+build-fluent-plugin-prometheus-format:
+	( cd fluent-plugin-prometheus-format && bundle install --no-deployment )
+
+.PHONY: test-fluent-plugin-protobuf
+test-fluent-plugin-protobuf:
+	( cd fluent-plugin-protobuf && bundle install --no-deployment )
