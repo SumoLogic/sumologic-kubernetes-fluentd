@@ -23,7 +23,7 @@ RUN gem install \
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.14.4 \
+        fluentd:1.14.5 \
         concurrent-ruby:1.1.8 \
         google-protobuf:3.19.2 \
         lru_redux:1.1.0 \
