@@ -1,5 +1,5 @@
 ARG FLUENTD_ARCH
-FROM ruby:2.7.5-buster AS builder
+FROM ruby:2.7.5-bullseye AS builder
 
 # Dependencies
 RUN apt-get update \
