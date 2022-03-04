@@ -121,8 +121,6 @@ RUN apt-get update \
  && rm -rf /usr/local/lib/ruby/2.7.0/bundler/ \
  && rm /usr/local/lib/ruby/2.7.0/bundler.rb \
  && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/bundler-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/cgi/ \
- && rm /usr/local/lib/ruby/2.7.0/cgi.rb \
  && rm -rf /usr/local/lib/ruby/2.7.0/json/ \
  && rm /usr/local/lib/ruby/2.7.0/json.rb \
  && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/json-*.gemspec \
