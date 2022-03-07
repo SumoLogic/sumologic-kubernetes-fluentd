@@ -1,5 +1,5 @@
 ARG FLUENTD_ARCH
-FROM ruby:2.6.9-buster AS builder
+FROM ruby:2.7.5-bullseye AS builder
 
 # Dependencies
 RUN apt-get update \
@@ -23,7 +23,7 @@ RUN gem install \
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.14.4 \
+        fluentd:1.14.5 \
         concurrent-ruby:1.1.8 \
         google-protobuf:3.19.2 \
         lru_redux:1.1.0 \
@@ -99,34 +99,36 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.14.4-debian${FLUENTD_ARCH}-1.0
+FROM fluent/fluentd:v1.14.5-debian${FLUENTD_ARCH}-1.0
 
 USER root
 
 # 1. Update system packages.
 # 2. Install required system packages.
-# 3. Clean up after system package installation.
-# 4. Delete vulnerable versions of Ruby gems to silence security scanners.
+# 3. Update vulnerable gem, cgi
+# 4. Clean up after system package installation.
+# 5. Delete vulnerable versions of Ruby gems to silence security scanners.
 RUN apt-get update \
  && apt-get upgrade --yes \
  && apt-get install --yes --no-install-recommends \
         libsnappy-dev \
         curl \
         jq \
+ && gem update cgi \
  && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
  && rm -rf /var/lib/dpkg/info/ \
- && rm -rf /usr/local/lib/ruby/2.6.0/bundler/ \
- && rm /usr/local/lib/ruby/2.6.0/bundler.rb \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/bundler-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.6.0/json/ \
- && rm /usr/local/lib/ruby/2.6.0/json.rb \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/json-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.6.0/rdoc/ \
- && rm /usr/local/lib/ruby/2.6.0/rdoc.rb \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/rdoc-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.6.0/rexml/ \
- && rm /usr/local/lib/ruby/gems/2.6.0/specifications/default/rexml-*.gemspec
+ && rm -rf /usr/local/lib/ruby/2.7.0/bundler/ \
+ && rm /usr/local/lib/ruby/2.7.0/bundler.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/bundler-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/json/ \
+ && rm /usr/local/lib/ruby/2.7.0/json.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/json-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/rdoc/ \
+ && rm /usr/local/lib/ruby/2.7.0/rdoc.rb \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rdoc-*.gemspec \
+ && rm -rf /usr/local/lib/ruby/2.7.0/rexml/ \
+ && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rexml-*.gemspec
 
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 COPY ./entrypoint.sh /bin/
