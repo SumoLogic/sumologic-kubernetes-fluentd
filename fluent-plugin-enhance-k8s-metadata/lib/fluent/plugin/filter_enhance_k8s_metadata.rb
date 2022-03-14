@@ -49,6 +49,9 @@ module Fluent
       config_param :cache_refresh_variation, :integer, default: 60 * 15
       config_param :cache_refresh_apiserver_request_delay, :float, default: Float::NAN
 
+      # Config to disable metadata refresh for short lived resources on cluster
+      config_param :cache_refresh_exclude_pod_regex, :string, :default => ""
+
       def configure(conf)
         super
         normalize_param

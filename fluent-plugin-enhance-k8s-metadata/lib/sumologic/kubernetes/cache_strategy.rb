@@ -40,6 +40,9 @@ module SumoLogic
       def refresh_cache_entry(cache_key)
         log.debug "Refreshing metadata for key #{cache_key}"
         namespace_name, pod_name = cache_key.split("::")
+        if !@cache_refresh_exclude_pod_regex.empty? && Regexp.compile(@cache_refresh_exclude_pod_regex).match(pod_name)
+            @cache.delete(cache_key)
+        end
         metadata = fetch_pod_metadata(namespace_name, pod_name)
         if metadata.empty?
             # if the pod doesn't exist anymore, remove its key from the cache
