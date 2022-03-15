@@ -41,6 +41,7 @@ module SumoLogic
         log.debug "Refreshing metadata for key #{cache_key}"
         namespace_name, pod_name = cache_key.split("::")
         if !@cache_refresh_exclude_pod_regex.to_s.strip.empty? && Regexp.compile(@cache_refresh_exclude_pod_regex).match(pod_name)
+            log.debug "Deleted metadata for key #{cache_key}"
             @cache.delete(cache_key)
             return nil
         end
