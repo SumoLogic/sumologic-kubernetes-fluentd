@@ -44,3 +44,4 @@ TBD
   like `daemonset`, `deployment`, `replicaset`, `statefulset` (default: `true`)
 - `add_service` - set it to `false` to disable decorating records with the `service` metadata (default: `true`)
 - `keepalive` - defines whether HTTP connections to Kubernetes API server should be persistent (default: `true`)
+- `cache_refresh_exclude_pod_regex` - add regex here to disable refresh for specific resource types (default: `''`)
