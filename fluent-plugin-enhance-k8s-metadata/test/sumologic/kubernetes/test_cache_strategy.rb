@@ -61,4 +61,22 @@ class CacheStrategyTest < Test::Unit::TestCase
     assert_false @cache.key?(key)
   end
 
+  test 'refreshing cache entry deletes if part of exclude pod regex' do
+    @cache_refresh_exclude_pod_regex = '(command-[a-z0-9]*|task-[a-z0-9]*)'
+    key = 'namespace::command-3eu1ed-sfdfd'
+    @cache[key] = {}
+    refresh_cache_entry(key)
+    assert_false @cache.key?(key)
+  end
+
+  test 'refreshing cache entry does not delete metadata if not part of regex' do
+    stub_request(:get, %r{/api/v1/namespaces/sumologic/pods/pod-with-metadata})
+        .to_return(body: test_resource('pod-with-metadata.json'), status: 200)
+    @cache_refresh_exclude_pod_regex = '(command-[a-z0-9]*|task-[a-z0-9]*)'
+    key = 'sumologic::pod-with-metadata'
+    @cache[key] = {}
+    refresh_cache_entry(key)
+    assert_true @cache.key?(key)
+  end
+
 end
