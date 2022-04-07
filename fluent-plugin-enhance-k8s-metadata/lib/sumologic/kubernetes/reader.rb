@@ -66,7 +66,7 @@ module SumoLogic
 
                 kind = owner_reference['kind']
                 unless RESOURCE_MAPPING.key?(kind)
-                  log.warn "not supported resource #{kind}"
+                  log.debug "Not fetching unsupported resource kind #{kind}"
                   next
                 end
 
