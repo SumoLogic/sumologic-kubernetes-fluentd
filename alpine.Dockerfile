@@ -1,4 +1,4 @@
-FROM ruby:2.7.5-alpine3.14 AS builder
+FROM ruby:2.7.6-alpine3.14 AS builder
 
 RUN apk update \
  && apk add \
@@ -98,7 +98,7 @@ RUN gem install \
         --local fluent-plugin-prometheus-format \
         --local fluent-plugin-protobuf
 
-FROM ruby:2.7.5-alpine3.14
+FROM ruby:2.7.6-alpine3.14
 
 # 1. Update system packages.
 # 2. Install required system packages.
