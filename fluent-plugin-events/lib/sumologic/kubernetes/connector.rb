@@ -100,6 +100,16 @@ module SumoLogic
         log.debug "auth_options: #{ssl_options}"
         auth_options
       end
+
+      def call_api_server(api_version, path, params)
+        begin
+          @clients[api_version].public_send(path, params)
+        rescue Kubeclient::HttpError => e
+          log.error "call_api_server: #{e.inspect}"
+          # refresh token
+          retry
+        end
+      end
     end
   end
 end
