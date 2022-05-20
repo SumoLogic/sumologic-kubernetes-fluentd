@@ -39,7 +39,7 @@ class ConnectorTest < Test::Unit::TestCase
     @bearer_token_file = 'test/resources/token'
     options = auth_options
     assert_not_nil options
-    assert_not_nil options[:bearer_token]
+    assert_not_nil options[:bearer_token_file]
   end
 
   test 'connect_kubernetes passed' do
