@@ -95,7 +95,7 @@ module SumoLogic
       def auth_options
         auth_options = {}
         if !@bearer_token_file.nil? && File.exist?(@bearer_token_file)
-          auth_options[:bearer_token] = File.read(@bearer_token_file)
+          auth_options[:bearer_token_file] = @bearer_token_file
         end
         log.debug "auth_options: #{ssl_options}"
         auth_options
