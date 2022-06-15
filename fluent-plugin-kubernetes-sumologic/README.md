@@ -24,6 +24,9 @@ can be used on pods:
 - `sumologic.com/sourceCategory` - overrides `source_category` plugin setting
 - `sumologic.com/sourceCategoryPrefix` - overrides `source_category_prefix` plugin setting
 - `sumologic.com/sourceCategoryReplaceDash` - overrides `source_category_replace_dash` plugin setting
+- `sumologic.com/sourceName` - overrides `source_name` plugin setting
+- `sumologic.com/sourceHost` - overrides `source_host` plugin setting
+- `sumologic.com/format` - overrides `log_format` plugin setting
 
 ### Container-level pod annotations
 
@@ -54,7 +57,7 @@ the other prefixes are not checked.
 ## Configuration
 
 | Parameter Name                    | Type     | Default                            | Scope        | Description                                                                                                                                                                                                      |
-| --------------------------------- | -------- | ---------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------|----------|------------------------------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | exclude_container_regex           | string   | ""                                 | Logs         | Exclude logs from containers matching this regex.                                                                                                                                                                |
 | exclude_facility_regex            | string   | ""                                 | systemd logs | Exclude systemd logs whose `SYSLOG_FACILITY` value matches this regex.                                                                                                                                           |
 | exclude_host_regex                | string   | ""                                 | systemd logs | Exclude systemd logs whose `_HOSTNAME` value matches this regex.                                                                                                                                                 |
