@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/abonas/kubeclient/
-  revision: 831e360772c717aab5ca086521c45c86ee51435e
-  ref: 831e360772c717aab5ca086521c45c86ee51435e
+  remote: https://github.com/ManageIQ/kubeclient
+  revision: 220b8d7af52180f9a0f69cb73f0723d2618cf3ef
+  ref: 220b8d7af52180f9a0f69cb73f0723d2618cf3ef
   specs:
     kubeclient (4.9.3)
       faraday (~> 1.1)
@@ -44,8 +44,8 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.3)
-      multipart-post (>= 1.2, < 3)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
@@ -75,7 +75,7 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       http-parser (~> 1.2.0)
-    http-cookie (1.0.4)
+    http-cookie (1.0.5)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
     http-parser (1.2.3)
@@ -83,7 +83,7 @@ GEM
     http_parser.rb (0.8.0)
     mocha (1.14.0)
     msgpack (1.5.1)
-    multipart-post (2.1.1)
+    multipart-post (2.2.3)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     power_assert (2.0.1)
@@ -104,7 +104,7 @@ GEM
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.1)
+    unf_ext (0.0.8.2)
     webmock (3.14.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
