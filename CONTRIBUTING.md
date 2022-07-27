@@ -2,7 +2,7 @@
 
 ## Regenerating Gemfile
 
-Run the following command in order to generate `Gemfile.lock` files for the specified plugin:
+Run the following command in order to generate `Gemfile.lock` files for the specific plugin:
 
 ```bash
 PLUGIN="fluent-plugin-datapoint
