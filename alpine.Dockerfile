@@ -34,7 +34,7 @@ RUN gem install \
         specific_install:0.3.5
 
 # Use unreleased Kubeclient version with persistent HTTP connections.
-RUN gem specific_install https://github.com/abonas/kubeclient --ref 831e360772c717aab5ca086521c45c86ee51435e
+RUN gem specific_install https://github.com/ManageIQ/kubeclient --ref 220b8d7af52180f9a0f69cb73f0723d2618cf3ef
 
 # FluentD plugins to allow customers to forward data if needed to various cloud providers
 RUN gem install \
