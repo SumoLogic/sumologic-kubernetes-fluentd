@@ -3,6 +3,7 @@
 In order to release new version of the repository:
 
 1. Ensure all required pull requests have been merged
+1. Ensure all dependencies have been updated in Dockerfile (see [#130]).
 1. Add and push new tag:
 
    ```bash
@@ -15,3 +16,4 @@ In order to release new version of the repository:
 
 [new_release]: https://github.com/SumoLogic/sumologic-kubernetes-fluentd/releases/new
 [auto_generate_notes]: https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+[#130]: https://github.com/SumoLogic/sumologic-kubernetes-fluentd/issues/130
