@@ -23,7 +23,7 @@ GEM
       tzinfo-data (~> 1.0)
       webrick (>= 1.4.2, < 1.8.0)
       yajl-ruby (~> 1.0)
-    google-protobuf (3.21.7)
+    google-protobuf (3.21.8)
     http_parser.rb (0.8.0)
     msgpack (1.5.1)
     power_assert (2.0.1)
