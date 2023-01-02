@@ -7,6 +7,7 @@ REPO_URL = $(ECR_URL)/$(IMAGE_NAME)
 PLUGINS = $(wildcard fluent-plugin*)
 BUILD_PLUGINS = $(patsubst fluent-plugin%, build-fluent-plugin%, $(PLUGINS))
 TEST_PLUGINS = $(patsubst fluent-plugin%, test-fluent-plugin%, $(PLUGINS))
+BUNDLE_UPDATE_ALL = $(patsubst fluent-plugin%, bundle-update-fluent-plugin%, $(PLUGINS))
 
 build:
 	DOCKER_BUILDKIT=1 docker build \
@@ -79,3 +80,10 @@ _build-%:
 	( cd $* && bundle install --no-deployment )
 
 ${BUILD_PLUGINS}: build-%: _build-%
+
+.PHONY: bundle-update
+bundle-update: ${BUNDLE_UPDATE_ALL}
+
+.PHONY: bundle-update-%
+bundle-update-%:
+	(cd $* && bundle update --bundler)

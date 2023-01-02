@@ -1,4 +1,5 @@
-FROM ruby:2.7.6-alpine3.14 AS builder
+# Use the same alpine and ruby version as in the target image below.
+FROM ruby:3.1.3-alpine3.16 AS builder
 
 RUN apk update \
  && apk add \
@@ -11,27 +12,20 @@ RUN apk update \
 
 RUN echo 'gem: --no-document' >> /etc/gemrc
 
-# Update Ruby gems to prevent vulnerabilities
-RUN gem install \
-        bundler:2.3.4 \
-        cgi:0.3.1 \
-        rdoc:6.4.0 \
-        rexml:3.2.5
-
 # Fluentd plugin dependencies
+# Copied from https://github.com/fluent/fluentd-docker-image/blob/74c97b2117ed012ac832c72c3de475b81647ed29/v1.15/alpine/Dockerfile
 RUN gem install \
-        async-http:0.54.0 \
+        async-http:0.56.6 \
         bigdecimal:1.4.4 \
-        concurrent-ruby:1.1.8 \
-        ext_monitor:0.1.2 \
-        fluentd:1.14.6 \
-        google-protobuf:3.19.2 \
-        json:2.4.1 \
+        concurrent-ruby:1.1.10 \
+        fluentd:1.15.3 \
+        google-protobuf:3.21.12 \
+        # json:2.6.2 \ # Ruby base image already has 2.6.3
         lru_redux:1.1.0 \
         net-http-persistent:4.0.1 \
-        oj:3.10.18 \
-        snappy:0.0.17 \
-        specific_install:0.3.5
+        oj:3.13.22 \
+        snappy:0.3.0 \
+        specific_install:0.3.8
 
 # Use unreleased Kubeclient version with persistent HTTP connections.
 RUN gem specific_install https://github.com/ManageIQ/kubeclient --ref 220b8d7af52180f9a0f69cb73f0723d2618cf3ef
@@ -43,14 +37,20 @@ RUN gem install \
         # && gem install fluent-plugin-google-cloud \
         # && gem install fluent-plugin-azure-storage-append-blob
 
-# FluentD plugins from RubyGems
+# Install Fluentd plugins
 RUN gem install \
-        fluent-plugin-concat:2.4.0 \
-        fluent-plugin-prometheus:1.6.1 \
-        fluent-plugin-record-modifier:2.0.1 \
-        fluent-plugin-rewrite-tag-filter:2.2.0 \
+	# https://github.com/fluent-plugins-nursery/fluent-plugin-concat
+        fluent-plugin-concat:2.5.0 \
+        # https://github.com/fluent/fluent-plugin-prometheus
+        fluent-plugin-prometheus:2.0.3 \
+        # https://github.com/repeatedly/fluent-plugin-record-modifier
+        fluent-plugin-record-modifier:2.1.1 \
+        # https://github.com/fluent/fluent-plugin-rewrite-tag-filter
+        fluent-plugin-rewrite-tag-filter:2.4.0 \
+        # https://github.com/SumoLogic/fluentd-output-sumologic/
         fluent-plugin-sumologic_output:1.8.0 \
-        fluent-plugin-systemd:1.0.2
+        # https://github.com/fluent-plugin-systemd/fluent-plugin-systemd
+        fluent-plugin-systemd:1.0.5
 
 WORKDIR /sumologic-kubernetes-fluentd
 
@@ -98,7 +98,11 @@ RUN gem install \
         --local fluent-plugin-prometheus-format \
         --local fluent-plugin-protobuf
 
-FROM ruby:2.7.6-alpine3.14
+# Use ruby as base image because the official Fluentd alpine image is not built for linux/arm/v7 or linux/arm64/v8.
+# Use the same alpine and ruby version as the base image to prevent issues.
+# https://github.com/fluent/fluentd-docker-image/blob/1f228c28b0429b22fecff6eac44c801ee61f5118/v1.15/alpine/Dockerfile
+# https://pkgs.alpinelinux.org/packages?name=ruby&branch=v3.16&repo=&arch=&maintainer=
+FROM ruby:3.1.3-alpine3.16
 
 # 1. Update system packages.
 # 2. Install required system packages.
@@ -107,18 +111,7 @@ RUN apk update \
  && apk add --no-cache \
         ca-certificates \
         snappy-dev \
-        tini \
- && rm -rf /usr/local/lib/ruby/2.7.0/bundler/ \
- && rm /usr/local/lib/ruby/2.7.0/bundler.rb \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/bundler-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/cgi/ \
- && rm /usr/local/lib/ruby/2.7.0/cgi.rb \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/cgi-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/rdoc/ \
- && rm /usr/local/lib/ruby/2.7.0/rdoc.rb \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rdoc-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/rexml/ \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rexml-*.gemspec
+        tini
 
 RUN delgroup ping \
     && addgroup -S -g 999 fluent \
