@@ -29,7 +29,7 @@ readonly arm_pid=$!
 docker buildx build \
     --push \
     --platform=linux/arm64/v8 \
-    --build-arg FLUENTD_ARCH="-arm64" \
+    --build-arg FLUENTD_ARCH="" \
     --build-arg BUILD_TAG="${BUILD_TAG}" \
     --tag "${REPO_URL}:${BUILD_TAG}-arm64" \
     . &

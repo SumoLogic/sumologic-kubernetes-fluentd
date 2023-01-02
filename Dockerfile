@@ -1,5 +1,6 @@
 ARG FLUENTD_ARCH
-FROM ruby:2.7.6-bullseye AS builder
+# Use the same ruby and debian version as is used in the target Fluentd image below.
+FROM ruby:3.1.3-bullseye AS builder
 
 # Dependencies
 RUN apt-get update \
@@ -14,22 +15,15 @@ RUN apt-get update \
         sudo \
         unzip
 
-# Update Ruby gems to prevent vulnerabilities
-RUN gem install \
-        bundler:2.3.4 \
-        date:2.0.1 \
-        rdoc:6.4.0 \
-        rexml:3.2.5
-
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.14.6 \
-        concurrent-ruby:1.1.8 \
-        google-protobuf:3.19.2 \
+        fluentd:1.15.3 \
+        concurrent-ruby:1.1.10 \
+        google-protobuf:3.21.12 \
         lru_redux:1.1.0 \
         net-http-persistent:4.0.1 \
-        snappy:0.0.17 \
-        specific_install:0.3.5
+        snappy:0.3.0 \
+        specific_install:0.3.8
 
 # Use unreleased Kubeclient version with persistent HTTP connections.
 RUN gem specific_install https://github.com/ManageIQ/kubeclient --ref 220b8d7af52180f9a0f69cb73f0723d2618cf3ef
@@ -41,14 +35,20 @@ RUN gem install \
         # && gem install fluent-plugin-google-cloud \
         # && gem install fluent-plugin-azure-storage-append-blob
 
-# FluentD plugins from RubyGems
+# Install Fluentd plugins
 RUN gem install \
-        fluent-plugin-concat:2.4.0 \
-        fluent-plugin-prometheus:1.6.1 \
-        fluent-plugin-record-modifier:2.0.1 \
-        fluent-plugin-rewrite-tag-filter:2.2.0 \
+	# https://github.com/fluent-plugins-nursery/fluent-plugin-concat
+        fluent-plugin-concat:2.5.0 \
+        # https://github.com/fluent/fluent-plugin-prometheus
+        fluent-plugin-prometheus:2.0.3 \
+        # https://github.com/repeatedly/fluent-plugin-record-modifier
+        fluent-plugin-record-modifier:2.1.1 \
+        # https://github.com/fluent/fluent-plugin-rewrite-tag-filter
+        fluent-plugin-rewrite-tag-filter:2.4.0 \
+        # https://github.com/SumoLogic/fluentd-output-sumologic/
         fluent-plugin-sumologic_output:1.8.0 \
-        fluent-plugin-systemd:1.0.2
+        # https://github.com/fluent-plugin-systemd/fluent-plugin-systemd
+        fluent-plugin-systemd:1.0.5
 
 WORKDIR /sumologic-kubernetes-fluentd
 
@@ -99,7 +99,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.14.6-debian${FLUENTD_ARCH}-1.0
+FROM fluent/fluentd:v1.15.3-debian${FLUENTD_ARCH}-1.0
 
 USER root
 
@@ -117,18 +117,7 @@ RUN apt-get update \
  && gem update cgi \
  && gem cleanup \
  && rm -rf /var/lib/apt/lists/ \
- && rm -rf /var/lib/dpkg/info/ \
- && rm -rf /usr/local/lib/ruby/2.7.0/bundler/ \
- && rm /usr/local/lib/ruby/2.7.0/bundler.rb \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/bundler-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/json/ \
- && rm /usr/local/lib/ruby/2.7.0/json.rb \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/json-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/rdoc/ \
- && rm /usr/local/lib/ruby/2.7.0/rdoc.rb \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rdoc-*.gemspec \
- && rm -rf /usr/local/lib/ruby/2.7.0/rexml/ \
- && rm /usr/local/lib/ruby/gems/2.7.0/specifications/default/rexml-*.gemspec
+ && rm -rf /var/lib/dpkg/info/
 
 COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 COPY ./entrypoint.sh /bin/
