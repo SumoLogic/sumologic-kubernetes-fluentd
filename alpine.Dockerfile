@@ -46,7 +46,7 @@ RUN gem install \
 # FluentD plugins from RubyGems
 RUN gem install \
         fluent-plugin-concat:2.4.0 \
-        fluent-plugin-prometheus:1.6.1 \
+        fluent-plugin-prometheus:2.0.3 \
         fluent-plugin-record-modifier:2.0.1 \
         fluent-plugin-rewrite-tag-filter:2.2.0 \
         fluent-plugin-sumologic_output:1.8.0 \
