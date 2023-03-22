@@ -33,7 +33,7 @@ GEM
     http_parser.rb (0.8.0)
     httpclient (2.8.3)
     msgpack (1.5.1)
-    power_assert (2.0.1)
+    power_assert (2.0.3)
     public_suffix (2.0.5)
     rake (13.0.6)
     rexml (3.2.5)
@@ -47,7 +47,7 @@ GEM
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
     strptime (0.2.5)
-    test-unit (3.5.5)
+    test-unit (3.5.7)
       power_assert
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
