@@ -39,10 +39,14 @@ wait $amd64_pid
 wait $arm_pid
 wait $arm64_pid
 
-docker manifest create --amend \
+docker buildx imagetools create --tag \
     "${REPO_URL}:${BUILD_TAG}" \
-    "${REPO_URL}:${BUILD_TAG}-amd64" \
-    "${REPO_URL}:${BUILD_TAG}-arm" \
-    "${REPO_URL}:${BUILD_TAG}-arm64"
+    "${REPO_URL}:${BUILD_TAG}-amd64"
 
-docker manifest push "${REPO_URL}:${BUILD_TAG}"
+docker buildx imagetools create --tag \
+    "${REPO_URL}:${BUILD_TAG}" \
+    "${REPO_URL}:${BUILD_TAG}-arm"
+
+docker buildx imagetools create --tag \
+    "${REPO_URL}:${BUILD_TAG}" \
+    "${REPO_URL}:${BUILD_TAG}-arm64"
