@@ -45,7 +45,7 @@
                         "value": "10055"
                     }
                 ],
-                "image": "k8s.gcr.io/k8s-dns-kube-dns-amd64:1.14.10",
+                "image": "registry.k8s.io/k8s-dns-kube-dns-amd64:1.14.10",
                 "imagePullPolicy": "IfNotPresent",
                 "livenessProbe": {
                     "failureThreshold": 5,
@@ -128,7 +128,7 @@
                     "--server=/in-addr.arpa/127.0.0.1#10053",
                     "--server=/in6.arpa/127.0.0.1#10053"
                 ],
-                "image": "k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64:1.14.10",
+                "image": "registry.k8s.io/k8s-dns-dnsmasq-nanny-amd64:1.14.10",
                 "imagePullPolicy": "IfNotPresent",
                 "livenessProbe": {
                     "failureThreshold": 5,
@@ -182,7 +182,7 @@
                     "--probe=kubedns,127.0.0.1:10053,kubernetes.default.svc.cluster.local,5,A",
                     "--probe=dnsmasq,127.0.0.1:53,kubernetes.default.svc.cluster.local,5,A"
                 ],
-                "image": "k8s.gcr.io/k8s-dns-sidecar-amd64:1.14.10",
+                "image": "registry.k8s.io/k8s-dns-sidecar-amd64:1.14.10",
                 "imagePullPolicy": "IfNotPresent",
                 "livenessProbe": {
                     "failureThreshold": 5,
@@ -285,8 +285,8 @@
         "containerStatuses": [
             {
                 "containerID": "docker://8f3274dc00f420559a513e12a4fa172bc68690c5294a01733c556b92de6f103e",
-                "image": "k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64:1.14.10",
-                "imageID": "docker-pullable://k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64@sha256:bbb2a290a568125b3b996028958eb773f33b5b87a6b37bf38a28f8b62dddb3c8",
+                "image": "registry.k8s.io/k8s-dns-dnsmasq-nanny-amd64:1.14.10",
+                "imageID": "docker-pullable://registry.k8s.io/k8s-dns-dnsmasq-nanny-amd64@sha256:bbb2a290a568125b3b996028958eb773f33b5b87a6b37bf38a28f8b62dddb3c8",
                 "lastState": {},
                 "name": "dnsmasq",
                 "ready": true,
@@ -299,8 +299,8 @@
             },
             {
                 "containerID": "docker://dedae05e0c355337b063ccb83ef7b7153b11c51442539f1f3ba086eced37e80b",
-                "image": "k8s.gcr.io/k8s-dns-kube-dns-amd64:1.14.10",
-                "imageID": "docker-pullable://k8s.gcr.io/k8s-dns-kube-dns-amd64@sha256:b99fc3eee2a9f052f7eb4cc00f15eb12fc405fa41019baa2d6b79847ae7284a8",
+                "image": "registry.k8s.io/k8s-dns-kube-dns-amd64:1.14.10",
+                "imageID": "docker-pullable://registry.k8s.io/k8s-dns-kube-dns-amd64@sha256:b99fc3eee2a9f052f7eb4cc00f15eb12fc405fa41019baa2d6b79847ae7284a8",
                 "lastState": {},
                 "name": "kubedns",
                 "ready": true,
@@ -313,8 +313,8 @@
             },
             {
                 "containerID": "docker://899c9c8db3d8ec0fdbc8d7942986945fb374c2c8a305f555a796bc29838c365d",
-                "image": "k8s.gcr.io/k8s-dns-sidecar-amd64:1.14.10",
-                "imageID": "docker-pullable://k8s.gcr.io/k8s-dns-sidecar-amd64@sha256:4f1ab957f87b94a5ec1edc26fae50da2175461f00afecf68940c4aa079bd08a4",
+                "image": "registry.k8s.io/k8s-dns-sidecar-amd64:1.14.10",
+                "imageID": "docker-pullable://registry.k8s.io/k8s-dns-sidecar-amd64@sha256:4f1ab957f87b94a5ec1edc26fae50da2175461f00afecf68940c4aa079bd08a4",
                 "lastState": {},
                 "name": "sidecar",
                 "ready": true,

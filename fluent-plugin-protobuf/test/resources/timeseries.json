@@ -173,7 +173,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -340,7 +340,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -689,7 +689,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -852,7 +852,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -921,7 +921,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -1244,7 +1244,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -3662,7 +3662,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -3773,7 +3773,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -4277,7 +4277,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -4565,7 +4565,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -5216,7 +5216,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -5326,7 +5326,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -5450,7 +5450,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/pause-amd64:3.0"
+                    "value": "registry.k8s.io/pause-amd64:3.0"
                 },
                 {
                     "name": "instance",
@@ -5584,7 +5584,7 @@
                 },
                 {
                     "name": "image",
-                    "value": "k8s.gcr.io/kube-proxy@sha256:de320f2611b72465371292c87d892e64b01bf5e27b211b9e8969a239d0f2523a"
+                    "value": "registry.k8s.io/kube-proxy@sha256:de320f2611b72465371292c87d892e64b01bf5e27b211b9e8969a239d0f2523a"
                 },
                 {
                     "name": "instance",
