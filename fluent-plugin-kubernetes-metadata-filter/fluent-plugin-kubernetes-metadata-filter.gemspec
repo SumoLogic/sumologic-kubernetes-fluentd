@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "bundler", "~> 2.0"
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest", "~> 5.14"
-  gem.add_development_dependency "test-unit", "~> 3.5.0"
+  gem.add_development_dependency "test-unit", "~> 3.6.0"
   gem.add_development_dependency "test-unit-rr", "~> 1.0.3"
   gem.add_development_dependency "copyright-header"
   gem.add_development_dependency "webmock"
