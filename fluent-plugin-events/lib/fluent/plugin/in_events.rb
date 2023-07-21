@@ -191,15 +191,7 @@ module Fluent
           log.debug 'Kubernetes URL is not set - inspecting environment'
           env_host = ENV['KUBERNETES_SERVICE_HOST']
           env_port = ENV['KUBERNETES_SERVICE_PORT']
-          if present?(env_host) && present?(env_port)
-            if env_host =~ Resolv::IPv6::Regex
-              # Brackets are needed around IPv6 addresses
-              env_host = "[#{env_host}]"
-            end
-            @kubernetes_url = "https://#{env_host}:#{env_port}"
-          else
-            log.debug "No Kubernetes URL could be found in config or environment"
-          end
+          @kubernetes_url = "https://#{env_host}:#{env_port}" unless env_host.nil? || env_port.nil?
         end
         log.debug "Kubernetes URL: '#{@kubernetes_url}'"
 
