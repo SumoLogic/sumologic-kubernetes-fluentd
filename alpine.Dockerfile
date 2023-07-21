@@ -1,5 +1,5 @@
 # Use the same alpine and ruby version as in the target image below.
-FROM ruby:3.1.3-alpine3.16 AS builder
+FROM ruby:3.1.4-alpine3.17 AS builder
 
 RUN apk update \
  && apk add \
@@ -13,17 +13,17 @@ RUN apk update \
 RUN echo 'gem: --no-document' >> /etc/gemrc
 
 # Fluentd plugin dependencies
-# Copied from https://github.com/fluent/fluentd-docker-image/blob/74c97b2117ed012ac832c72c3de475b81647ed29/v1.15/alpine/Dockerfile
+# Copied from https://github.com/fluent/fluentd-docker-image/blob/6a497560b45add04b9033955ae2e97c2616aa356/v1.16/alpine/Dockerfile
 RUN gem install \
-        async-http:0.56.6 \
+        async-http:0.60.2 \
         bigdecimal:1.4.4 \
         concurrent-ruby:1.1.10 \
-        fluentd:1.15.3 \
+        fluentd:1.16.2 \
         google-protobuf:3.21.12 \
-        # json:2.6.2 \ # Ruby base image already has 2.6.3
+        json:2.6.3 \
         lru_redux:1.1.0 \
-        net-http-persistent:4.0.1 \
-        oj:3.13.22 \
+        net-http-persistent:4.0.2 \
+        oj:3.15.0 \
         snappy:0.3.0 \
         specific_install:0.3.8
 
@@ -42,7 +42,7 @@ RUN gem install \
 	# https://github.com/fluent-plugins-nursery/fluent-plugin-concat
         fluent-plugin-concat:2.5.0 \
         # https://github.com/fluent/fluent-plugin-prometheus
-        fluent-plugin-prometheus:2.0.3 \
+        fluent-plugin-prometheus:2.1.0 \
         # https://github.com/repeatedly/fluent-plugin-record-modifier
         fluent-plugin-record-modifier:2.1.1 \
         # https://github.com/fluent/fluent-plugin-rewrite-tag-filter
@@ -100,9 +100,9 @@ RUN gem install \
 
 # Use ruby as base image because the official Fluentd alpine image is not built for linux/arm/v7 or linux/arm64/v8.
 # Use the same alpine and ruby version as the base image to prevent issues.
-# https://github.com/fluent/fluentd-docker-image/blob/1f228c28b0429b22fecff6eac44c801ee61f5118/v1.15/alpine/Dockerfile
-# https://pkgs.alpinelinux.org/packages?name=ruby&branch=v3.16&repo=&arch=&maintainer=
-FROM ruby:3.1.3-alpine3.16
+# https://github.com/fluent/fluentd-docker-image/blob/6a497560b45add04b9033955ae2e97c2616aa356/v1.16/alpine/Dockerfile
+# https://pkgs.alpinelinux.org/packages?name=ruby&branch=v3.17
+FROM ruby:3.1.4-alpine3.17
 
 # 1. Update system packages.
 # 2. Install required system packages.
