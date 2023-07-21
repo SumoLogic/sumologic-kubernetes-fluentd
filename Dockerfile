@@ -1,6 +1,6 @@
 ARG FLUENTD_ARCH
 # Use the same ruby and debian version as is used in the target Fluentd image below.
-FROM ruby:3.1.3-bullseye AS builder
+FROM ruby:3.1.4-bullseye AS builder
 
 # Dependencies
 RUN apt-get update \
@@ -17,11 +17,11 @@ RUN apt-get update \
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.15.3 \
+        fluentd:1.16.2 \
         concurrent-ruby:1.1.10 \
         google-protobuf:3.21.12 \
         lru_redux:1.1.0 \
-        net-http-persistent:4.0.1 \
+        net-http-persistent:4.0.2 \
         snappy:0.3.0 \
         specific_install:0.3.8
 
@@ -40,7 +40,7 @@ RUN gem install \
 	# https://github.com/fluent-plugins-nursery/fluent-plugin-concat
         fluent-plugin-concat:2.5.0 \
         # https://github.com/fluent/fluent-plugin-prometheus
-        fluent-plugin-prometheus:2.0.3 \
+        fluent-plugin-prometheus:2.1.0 \
         # https://github.com/repeatedly/fluent-plugin-record-modifier
         fluent-plugin-record-modifier:2.1.1 \
         # https://github.com/fluent/fluent-plugin-rewrite-tag-filter
@@ -99,7 +99,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.15.3-debian${FLUENTD_ARCH}-1.0
+FROM fluent/fluentd:v1.16.2-debian${FLUENTD_ARCH}-1.0
 
 USER root
 
