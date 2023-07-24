@@ -41,12 +41,6 @@ wait $arm64_pid
 
 docker buildx imagetools create --tag \
     "${REPO_URL}:${BUILD_TAG}" \
-    "${REPO_URL}:${BUILD_TAG}-amd64"
-
-docker buildx imagetools create --tag \
-    "${REPO_URL}:${BUILD_TAG}" \
-    "${REPO_URL}:${BUILD_TAG}-arm"
-
-docker buildx imagetools create --tag \
-    "${REPO_URL}:${BUILD_TAG}" \
+    "${REPO_URL}:${BUILD_TAG}-amd64" \
+    "${REPO_URL}:${BUILD_TAG}-arm" \
     "${REPO_URL}:${BUILD_TAG}-arm64"
