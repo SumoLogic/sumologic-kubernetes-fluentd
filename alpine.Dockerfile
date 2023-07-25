@@ -15,6 +15,7 @@ RUN echo 'gem: --no-document' >> /etc/gemrc
 # Fluentd plugin dependencies
 # Copied from https://github.com/fluent/fluentd-docker-image/blob/6a497560b45add04b9033955ae2e97c2616aa356/v1.16/alpine/Dockerfile
 RUN gem install \
+        async:1.30.3 \
         async-http:0.60.2 \
         bigdecimal:1.4.4 \
         concurrent-ruby:1.1.10 \
