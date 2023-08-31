@@ -8,8 +8,8 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.5)
+      public_suffix (>= 2.0.2, < 6.0)
     codecov (0.6.0)
       simplecov (>= 0.15, < 0.22)
     concurrent-ruby (1.1.10)
@@ -34,9 +34,9 @@ GEM
     httpclient (2.8.3)
     msgpack (1.5.1)
     power_assert (2.0.3)
-    public_suffix (2.0.5)
+    public_suffix (5.0.3)
     rake (13.0.6)
-    rexml (3.2.5)
+    rexml (3.2.6)
     serverengine (2.3.2)
       sigdump (~> 0.2.2)
     sigdump (0.2.5)
@@ -53,7 +53,7 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.1)
       tzinfo (>= 1.0.0)
-    webmock (3.18.1)
+    webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
