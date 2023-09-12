@@ -10,14 +10,10 @@ GEM
   specs:
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    codecov (0.2.12)
-      json
-      simplecov
     concurrent-ruby (1.1.10)
     cool.io (1.7.1)
     crack (0.4.5)
       rexml
-    docile (1.4.0)
     fluentd (1.16.2)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
@@ -33,7 +29,6 @@ GEM
     hashdiff (1.0.1)
     http_parser.rb (0.8.0)
     httpclient (2.8.3)
-    json (2.6.3)
     msgpack (1.5.1)
     power_assert (2.0.3)
     public_suffix (5.0.3)
@@ -42,12 +37,6 @@ GEM
     serverengine (2.3.2)
       sigdump (~> 0.2.2)
     sigdump (0.2.5)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.12.3)
-    simplecov_json_formatter (0.1.4)
     strptime (0.2.5)
     test-unit (3.6.1)
       power_assert
@@ -67,12 +56,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2)
-  codecov
   fluent-plugin-kubernetes-sumologic!
   rake
-  simplecov
   test-unit (~> 3.6.0)
   webmock
 
 BUNDLED WITH
-   2.4.1
+   2.4.19
