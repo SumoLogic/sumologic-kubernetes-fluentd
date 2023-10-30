@@ -32,7 +32,7 @@ GEM
     msgpack (1.5.1)
     power_assert (2.0.3)
     public_suffix (5.0.3)
-    rake (13.0.6)
+    rake (13.1.0)
     rexml (3.2.6)
     serverengine (2.3.2)
       sigdump (~> 0.2.2)
