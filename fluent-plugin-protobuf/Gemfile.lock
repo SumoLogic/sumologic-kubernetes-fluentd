@@ -3,7 +3,7 @@ PATH
   specs:
     fluent-plugin-protobuf (2.0.0)
       fluentd (= 1.16.2)
-      google-protobuf (~> 3.17)
+      google-protobuf (>= 3.17, < 5.0)
       snappy (> 0)
 
 GEM
@@ -23,7 +23,8 @@ GEM
       tzinfo-data (~> 1.0)
       webrick (~> 1.4)
       yajl-ruby (~> 1.0)
-    google-protobuf (3.25.3)
+    google-protobuf (4.26.1)
+      rake (>= 13)
     http_parser.rb (0.8.0)
     msgpack (1.6.0)
     power_assert (2.0.3)
