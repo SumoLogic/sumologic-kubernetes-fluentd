@@ -1,6 +1,6 @@
 ARG FLUENTD_ARCH
 # Use the same ruby and debian version as is used in the target Fluentd image below.
-FROM ruby:3.1.4-bullseye AS builder
+FROM ruby:3.2-slim-bookworm AS builder
 
 # Dependencies
 RUN apt-get update \
