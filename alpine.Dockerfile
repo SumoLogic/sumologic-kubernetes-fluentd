@@ -1,5 +1,5 @@
 # Use the same alpine and ruby version as in the target image below.
-FROM ruby:3.1.4-alpine3.17 AS builder
+FROM ruby:3.2.0-alpine3.17 AS builder
 
 RUN apk update \
  && apk add \
@@ -103,7 +103,7 @@ RUN gem install \
 # Use the same alpine and ruby version as the base image to prevent issues.
 # https://github.com/fluent/fluentd-docker-image/blob/6a497560b45add04b9033955ae2e97c2616aa356/v1.16/alpine/Dockerfile
 # https://pkgs.alpinelinux.org/packages?name=ruby&branch=v3.17
-FROM ruby:3.1.4-alpine3.17
+FROM ruby:3.2.0-alpine3.17
 
 # 1. Update system packages.
 # 2. Install required system packages.
