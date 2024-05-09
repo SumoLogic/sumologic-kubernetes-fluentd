@@ -13,18 +13,19 @@ RUN apk update \
 RUN echo 'gem: --no-document' >> /etc/gemrc
 
 # Fluentd plugin dependencies
-# Copied from https://github.com/fluent/fluentd-docker-image/blob/6a497560b45add04b9033955ae2e97c2616aa356/v1.16/alpine/Dockerfile
+# Copied from https://github.com/fluent/fluentd-docker-image/blob/6f347061a521a097cf8732044da110ab990416dc/v1.16/alpine/Dockerfile
 RUN gem install \
-        async:1.30.3 \
+        async:1.31.0 \
         async-http:0.60.2 \
         bigdecimal:1.4.4 \
         concurrent-ruby:1.1.10 \
-        fluentd:1.16.2 \
+        fluentd:1.16.5 \
         google-protobuf:3.21.12 \
         json:2.6.3 \
         lru_redux:1.1.0 \
         net-http-persistent:4.0.2 \
-        oj:3.15.0 \
+        oj:3.16.1 \
+        rexml:3.2.6 \
         snappy:0.3.0 \
         specific_install:0.3.8
 

@@ -13,15 +13,22 @@ RUN apt-get update \
         make \
         ruby-dev \
         sudo \
-        unzip
+        unzip \
+        git
 
 # Fluentd plugin dependencies
 RUN gem install \
-        fluentd:1.16.2 \
+        async:1.31.0 \
+        async-http:0.60.2 \
+        bigdecimal:1.4.4 \
         concurrent-ruby:1.1.10 \
+        fluentd:1.16.5 \
         google-protobuf:3.21.12 \
+        json:2.6.3 \
         lru_redux:1.1.0 \
         net-http-persistent:4.0.2 \
+        oj:3.16.1 \
+        rexml:3.2.6 \
         snappy:0.3.0 \
         specific_install:0.3.8
 
@@ -99,7 +106,7 @@ RUN gem install \
 RUN rm -rf /usr/local/bundle/cache/* \
  && find /usr/local/bundle/ -name "*.o" | xargs rm
 
-FROM fluent/fluentd:v1.16.2-debian${FLUENTD_ARCH}-1.0
+FROM fluent/fluentd:v1.16.5-debian${FLUENTD_ARCH}-1.0
 
 USER root
 
