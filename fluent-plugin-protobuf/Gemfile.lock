@@ -3,12 +3,13 @@ PATH
   specs:
     fluent-plugin-protobuf (2.0.0)
       fluentd (= 1.16.5)
-      google-protobuf (~> 3.17)
+      google-protobuf (>= 3.17, < 5.0)
       snappy (> 0)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    bigdecimal (3.1.8)
     concurrent-ruby (1.1.10)
     cool.io (1.7.1)
     fluentd (1.16.5)
@@ -23,7 +24,9 @@ GEM
       tzinfo-data (~> 1.0)
       webrick (~> 1.4)
       yajl-ruby (~> 1.0)
-    google-protobuf (3.25.3)
+    google-protobuf (4.27.3)
+      bigdecimal
+      rake (>= 13)
     http_parser.rb (0.8.0)
     msgpack (1.6.0)
     power_assert (2.0.3)
